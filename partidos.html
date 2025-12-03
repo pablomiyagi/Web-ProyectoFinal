@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetMaster - Inicio</title>
+    <title>BetMaster - Partidos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,32 +20,21 @@
         <button class="btn-login">Iniciar sesión</button>
     </header>
 
-    <section class="hero">
-        <h1>HASTA 100€ EN CRÉDITOS DE APUESTA</h1>
-        <p>Oferta de nuevo cliente + 10 fichas doradas. ¡Apuesta ahora!</p>
-        <button class="btn-primary">Registrarse</button>
-    </section>
+    <section class="partidos" style="padding:50px;">
+        <h2>Partidos de la Semana</h2>
+        <div class="tabs">
+            <button class="tab-button active" onclick="openLeague('laliga')">LaLiga</button>
+            <button class="tab-button" onclick="openLeague('premier')">Premier League</button>
+        </div>
 
-    <section class="cards" style="padding:50px;">
-        <div class="card">
-            <h3>Fútbol</h3>
-            <p>Últimos partidos y apuestas destacadas de todas las ligas.</p>
-        </div>
-        <div class="card">
-            <h3>Baloncesto</h3>
-            <p>NBA y competiciones europeas.</p>
-        </div>
-        <div class="card">
-            <h3>Tenis</h3>
-            <p>Grand Slams, ATP y WTA.</p>
-        </div>
+        <div id="laliga" class="league active"></div>
+        <div id="premier" class="league"></div>
     </section>
 
     <footer>
         &copy; 2025 BetMaster - Todos los derechos reservados.
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
