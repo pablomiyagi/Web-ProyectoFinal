@@ -3,36 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetMaster - Partidos</title>
-    <link rel="stylesheet" href="style.css">
+    <title>VictoryZone - Partidos</title>
+    <link rel="stylesheet" href="deportes.css">
 </head>
 <body>
     <header>
-        <div class="logo">BetMaster</div>
+        <div class="logo">VictoryZone</div>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="deportes.html">Partidos</a></li>
-                <li><a href="estadisticas.html">Estadísticas</a></li>
+                <li><a href="deportes.html">Deportes</a></li>
+                <li><a href="ruleta.html">Ruleta</a></li>
+                <li><a href="apuestas.html">Apuestas de caballos</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
         <button class="btn-login">Iniciar sesión</button>
     </header>
 
-    <section class="partidos" style="padding:50px;">
-        <h2>Partidos de la Semana</h2>
+    <section class="main-container">
+        <h2 class="section-title">Partidos de la Semana</h2>
+        
         <div class="tabs">
             <button class="tab-button active" onclick="openLeague('laliga')">LaLiga</button>
             <button class="tab-button" onclick="openLeague('premier')">Premier League</button>
+            <button class="tab-button" onclick="openLeague('nfl')">NFL</button>
+            <button class="tab-button" onclick="openLeague('tenis')">Wimbledon</button>
         </div>
 
-        <div id="laliga" class="league active"></div>
-        <div id="premier" class="league"></div>
+        <div id="laliga" class="league-container active"></div>
+        <div id="premier" class="league-container"></div>
+        <div id="nfl" class="league-container"></div>
+        <div id="tenis" class="league-container"></div>
     </section>
 
     <footer>
-        &copy; 2025 BetMaster - Todos los derechos reservados.
+        &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
 
     <script src="script.js"></script>
