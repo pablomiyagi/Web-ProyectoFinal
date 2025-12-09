@@ -184,3 +184,266 @@ footer {
     font-size: 0.9rem;
     color: #aaa;
 }
+/* --- PEGA AQUÍ TU CSS ORIGINAL (El que me enviaste) --- */
+/* ... (Mantén el CSS de la sección 1 (casi al inicio) hasta donde dice AÑADIDOS PARA LA RULETA) ... */
+
+/* --- AÑADIDOS PARA LA RULETA (Actualizado para el Grid de la Imagen) --- */
+
+/* MESA DE CASINO */
+.casino-table {
+    background-color: #0b3d22; /* Verde oscuro tapete */
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-image: radial-gradient(#155b34 10%, #0b3d22 90%);
+}
+
+.table-frame {
+    display: flex;
+    gap: 30px;
+    background: #0f5e33;
+    padding: 20px;
+    border-radius: 40px; 
+    border: 10px solid #5c3a12; /* Borde de madera */
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.6), 0 20px 30px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* LA RUEDA (Mismo estilo) */
+.wheel-section {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    flex-shrink: 0;
+}
+#wheelCanvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 8px solid #d4af37;
+    transition: transform 4s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
+
+/* --- ESTILOS DE LA RUEDA --- */
+
+.wheel-section {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    flex-shrink: 0;
+    /* Añadimos un pequeño margen superior para hacer espacio a la flecha */
+    margin-top: 20px; 
+}
+
+/* EL PUNTERO/FLECHA GANADORA (Mejorado) */
+.wheel-pointer {
+    position: absolute;
+    top: -10px; /* Sube la flecha justo encima del borde */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* Forma de flecha triangular usando CSS borders */
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid #d4af37; /* Color dorado, haciendo juego con el borde */
+    
+    z-index: 100; /* Asegura que esté encima de todo */
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.8)); /* Sombra para destacarla */
+}
+
+.board-area {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    flex-shrink: 0;
+    border: 2px solid #fff; /* Borde del tapete principal */
+}
+
+/* Contenedores de 0 y 00 */
+.top-zeros {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 70px;
+}
+.zero-double { grid-column: 1 / span 1; }
+.zero-single { grid-column: 2 / span 1; }
+
+/* GRID PRINCIPAL (1-36 y 2:1) */
+.main-betting-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 0.5fr; /* Col 1, Col 2, Col 3, y la columna 2-1 (más estrecha) */
+    grid-template-rows: repeat(12, 1fr); /* 12 filas de números */
+    gap: 0; /* Sin espacio entre las casillas */
+}
+
+/* ESTILOS DE CASILLAS GENÉRICOS */
+.bet-spot {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.4);
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.1s;
+}
+
+.bet-spot:hover { background-color: rgba(255,255,255,0.1); }
+
+/* Colores de Casillas */
+.bg-red { background-color: #d32f2f; }
+.bg-black { background-color: #222; }
+.bg-green { background-color: #00cc66; }
+
+.zero-double, .zero-single {
+    border: 1px solid #fff;
+    font-size: 1.5rem;
+    background-color: #00cc66;
+    height: 100%;
+}
+
+/* Apuestas de docenas (1st 12, etc.) */
+.dozens-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 40px;
+}
+.dozen-bet { width: 100%; height: 100%; }
+
+/* Apuestas de línea (Par, Impar, etc.) */
+.line-bets-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 segmentos (1-18, Par, R, N, Impar, 19-36) */
+    height: 40px;
+}
+.line-bet { width: 100%; height: 100%; }
+.line-bet.color-red { background-color: #d32f2f; }
+.line-bet.color-black { background-color: #222; }
+
+
+/* FICHAS VISUALES EN EL TABLERO (Mismo estilo) */
+.chip-stack {
+    /* ... (Mantener estilos chip-stack) ... */
+}
+.chip-stack.active { display: flex; }
+
+/* --- BARRA DE CONTROL (Mejorada) --- */
+.controls-bar {
+    margin-top: 20px;
+    display: flex;
+    gap: 80px; /* Más espacio */
+    align-items: flex-end; /* Alinear los botones con la línea de fichas */
+    background: #2a2d41; /* Color oscuro similar al fondo del header */
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+}
+
+/* Selector de Fichas */
+.chips-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.chips-selector p {
+    font-size: 1rem;
+    color: #ccc;
+    margin-right: 10px;
+}
+
+.chip-btn {
+    width: 65px; /* Más grandes */
+    height: 65px;
+    border-radius: 50%;
+    border: 3px solid white; 
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #fff;
+    /* Estilo base, que será sobrescrito por los colores específicos */
+    background: radial-gradient(circle, #555 40%, #333 90%);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Colores específicos para cada ficha (como en la imagen de referencia) */
+.chip-50 { 
+    background: radial-gradient(circle, #0099ff 40%, #0066cc 90%); 
+    border-color: #fff;
+}
+.chip-100 { 
+    background: radial-gradient(circle, #ffaa00 40%, #cc8800 90%); 
+    border-color: #fff; 
+}
+.chip-500 { 
+    background: radial-gradient(circle, #aa33ff 40%, #8800cc 90%); 
+    border-color: #fff; 
+}
+.chip-1k { 
+    background: radial-gradient(circle, #ff5555 40%, #cc0000 90%); 
+    border-color: #fff;
+}
+.chip-2k { 
+    background: radial-gradient(circle, #00cc66 40%, #009933 90%); 
+    border-color: #fff;
+}
+
+.chip-btn.active {
+    /* Efecto de selección más pronunciado */
+    transform: scale(1.15) translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 204, 102, 0.4);
+    border-color: #ffd700; /* Borde amarillo/dorado al seleccionar */
+}
+
+/* Botones de Acción */
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.btn-spin-real {
+    /* Botón SPIN grande y rojo como en el ejemplo */
+    background: radial-gradient(#ff5555, #cc0000);
+    color: white;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    font-weight: bold;
+    font-size: 1.5rem; /* Más grande */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 2px #000;
+}
+.btn-spin-real:active { 
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+.btn-spin-real:disabled {
+    opacity: 0.5;
+    background: #555;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-clear {
+    /* Botón Borrar/Undo */
+    background-color: #555;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid #777;
+}
+
+.message-box {
+    /* ... (Mantener estilos message-box) ... */
+    font-size: 1.2rem;
+}

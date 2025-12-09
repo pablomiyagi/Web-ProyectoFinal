@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VictoryZone - Ruleta Americana</title>
+    <link rel="stylesheet" href="ruleta.css">
+</head>
+<body>
+    <header>
+        <div class="logo">VictoryZone</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="deportes.html">Deportes</a></li>
+                <li><a href="ruleta.html">Ruleta</a></li>
+                <li><a href="apuestas.html">Apuestas de caballos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="user-balance">Saldo: <span id="balance">10000</span>€</div>
+        <button class="btn-login">Iniciar sesión</button>
+    </header>
+
+    <section class="casino-table">
+        <div class="table-frame">
+            
+            <div class="wheel-section">
+                <div class="wheel-pointer"></div>
+                <canvas id="wheelCanvas" width="400" height="400"></canvas>
+            </div>
+
+            <div class="board-area">
+                
+                <div class="top-zeros">
+                    <div class="bet-spot zero-double" id="spot-00" onclick="placeBet('00')">00<div class="chip-stack" id="bet-00"></div></div>
+                    <div class="bet-spot zero-single" id="spot-0" onclick="placeBet(0)">0<div class="chip-stack" id="bet-0"></div></div>
+                </div>
+
+                <div class="main-betting-grid" id="mainBettingGrid">
+                    </div>
+
+                <div class="dozens-row">
+                    <div class="bet-spot dozen-bet" id="spot-1st12" onclick="placeBet('1st12')">1st 12<div class="chip-stack" id="bet-1st12"></div></div>
+                    <div class="bet-spot dozen-bet" id="spot-2nd12" onclick="placeBet('2nd12')">2nd 12<div class="chip-stack" id="bet-2nd12"></div></div>
+                    <div class="bet-spot dozen-bet" id="spot-3rd12" onclick="placeBet('3rd12')">3rd 12<div class="chip-stack" id="bet-3rd12"></div></div>
+                </div>
+
+                <div class="line-bets-row">
+                    <div class="bet-spot line-bet half-size" id="spot-1_18" onclick="placeBet('1-18')">1-18<div class="chip-stack" id="bet-1-18"></div></div>
+                    <div class="bet-spot line-bet half-size" id="spot-even" onclick="placeBet('even')">PAR<div class="chip-stack" id="bet-even"></div></div>
+                    <div class="bet-spot line-bet color-red" id="spot-red" onclick="placeBet('red')"></div>
+                    <div class="bet-spot line-bet color-black" id="spot-black" onclick="placeBet('black')"></div>
+                    <div class="bet-spot line-bet half-size" id="spot-odd" onclick="placeBet('odd')">IMPAR<div class="chip-stack" id="bet-odd"></div></div>
+                    <div class="bet-spot line-bet half-size" id="spot-19_36" onclick="placeBet('19-36')">19-36<div class="chip-stack" id="bet-19-36"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-bar">
+    <div class="chips-selector">
+        <p>Selecciona ficha:</p>
+        <button class="chip-btn chip-50" onclick="selectChip(50)">50</button>
+        <button class="chip-btn chip-100" onclick="selectChip(100)">100</button>
+        <button class="chip-btn chip-500" onclick="selectChip(500)">500</button>
+        <button class="chip-btn chip-1k active" onclick="selectChip(1000)">1K</button> 
+        <button class="chip-btn chip-2k" onclick="selectChip(2000)">2K</button> 
+    </div>
+    
+    <div class="action-buttons">
+        <div id="msg-area" class="message-box">Hagan juego</div>
+        <button id="spinBtn" class="btn-spin-real">SPIN</button> <button onclick="clearBets()" class="btn-clear">UNDO</button> </div>
+</div>
+    </section>
+
+    <footer>&copy; 2025 VictoryZone Casino</footer>
+    <script src="ruleta.js"></script>
+</body>
+</html>
