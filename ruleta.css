@@ -324,12 +324,71 @@ footer {
 .line-bet.color-red { background-color: #d32f2f; }
 .line-bet.color-black { background-color: #222; }
 
-
-/* FICHAS VISUALES EN EL TABLERO (Mismo estilo) */
 .chip-stack {
-    /* ... (Mantener estilos chip-stack) ... */
+    position: absolute; /* Para superponerla sobre el número */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Por defecto, oculto */
+    
+    /* ESTILO DE FICHA */
+    width: 30px; /* Tamaño de la ficha en el tablero */
+    height: 30px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    z-index: 5; /* Asegura que esté encima del número */
 }
-.chip-stack.active { display: flex; }
+
+/* Solo se muestra cuando tiene la clase 'active' */
+.chip-stack.active {
+    display: flex; /* Mostrar la ficha */
+}
+
+/* Clases para los valores de ficha */
+.chip-visual-50 {
+    background: radial-gradient(circle, #0099ff 40%, #0066cc 90%); /* Azul */
+    border-color: #fff;
+}
+.chip-visual-100 {
+    background: radial-gradient(circle, #ffaa00 40%, #cc8800 90%); /* Naranja */
+    border-color: #fff; 
+}
+.chip-visual-500 {
+    background: radial-gradient(circle, #aa33ff 40%, #8800cc 90%); /* Púrpura */
+    border-color: #fff; 
+}
+.chip-visual-1000 { /* Usamos 1000 para 1K */
+    background: radial-gradient(circle, #ff5555 40%, #cc0000 90%); /* Rojo */
+    border-color: #fff;
+}
+.chip-visual-2000 { /* Usamos 2000 para 2K */
+    background: radial-gradient(circle, #00cc66 40%, #009933 90%); /* Verde */
+    border-color: #fff;
+}
+
+
+/* Asegurar que el número de la casilla se vea detrás de la ficha */
+.bet-spot {
+    position: relative; /* Esencial para el posicionamiento absoluto del chip-stack */
+    z-index: 1;
+}
+
+/* Opcional: Asegúrate de que el contenido del bet-spot esté arriba */
+.bet-spot > * {
+    z-index: 2; 
+}
+
+/* Modificación del botón de UNDO para que se pueda hacer click */
+.btn-clear {
+    cursor: pointer; /* Añadir cursor de puntero */
+}
 
 /* --- BARRA DE CONTROL (Mejorada) --- */
 .controls-bar {
@@ -442,4 +501,17 @@ footer {
 .message-box {
     /* ... (Mantener estilos message-box) ... */
     font-size: 1.2rem;
+}
+
+.line-bet.color-red,
+.line-bet.color-black {
+    font-size: 0; 
+    position: relative; 
+    overflow: hidden; 
+}
+
+
+.line-bet.color-red::after,
+.line-bet.color-black::after {
+    content: none !important; 
 }
