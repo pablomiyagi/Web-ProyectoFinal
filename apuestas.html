@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apuestas de Caballos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header>
+    <div class="logo">Apuestas de Caballos</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="partidos.html">Partidos</a></li>
+            <li><a href="estadisticas.html">Estadísticas</a></li>
+            <li><a href="apuestas.html">Apuestas de caballos</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+    <button class="btn-login">Ingresar</button>
+</header>
+
+<section class="hero">
+    <h1>¡Bienvenido a las Carreras!</h1>
+    <p>Apuesta por tu caballo favorito y mira la carrera en tiempo real.</p>
+</section>
+<section class="stats">
+    <div class="stat-card">
+        <h3>Caballos</h3>
+        <p>4 disponibles</p>
+    </div>
+    <div class="stat-card">
+        <h3>Último Ganador</h3>
+        <p id="lastWinner">N/A</p>
+    </div>
+</section>
+
+<div class="card" style="width: 90%; margin: auto;">
+    <h3>Selecciona tu caballo:</h3>
+    
+    <select id="betHorse">
+        <option value="1">Pegaso</option>
+        <option value="2">Ramoncin</option>
+        <option value="3">Bufalo</option>
+        <option value="4">Perdigon</option>
+    </select>
+
+    <button style="margin-top: 15px; padding: 10px 20px; background:#00cc66; color:white;" onclick="startRace()">
+        Apostar y comenzar carrera
+    </button>
+</div>
+<div class="race-track">
+    <div class="lane"><div class="horse" id="horse1"></div></div>
+    <div class="lane"><div class="horse" id="horse2"></div></div>
+    <div class="lane"><div class="horse" id="horse3"></div></div>
+    <div class="lane"><div class="horse" id="horse4"></div></div>
+</div>
+
+<h2 id="result"></h2>
+<script>
+    function startRace() {
+        const horses = [
+            document.getElementById("horse1"),
+            document.getElementById("horse2"),
+            document.getElementById("horse3"),
+            document.getElementById("horse4")
+        ];
+
+        const userBet = document.getElementById("betHorse").value;
+        const finishLine = document.querySelector(".race-track").offsetWidth - 70;
+
+        horses.forEach(h => h.style.left = "0px");
+        document.getElementById("result").innerHTML = "¡La carrera está en progreso!";
+
+        let raceInterval = setInterval(() => {
+            let winner = null;
+
+            horses.forEach((horse, index) => {
+                let currentPos = parseInt(horse.style.left);
+                let newPos = currentPos + Math.random() * 20;
+                horse.style.left = newPos + "px";
+
+                if (newPos >= finishLine && winner === null) {
+                    winner = index + 1;
+                }
+            });
+
+            if (winner !== null) {
+                clearInterval(raceInterval);
+
+                document.getElementById("lastWinner").innerText = "Caballo " + winner;
+
+                if (winner == userBet) {
+                    document.getElementById("result").innerHTML = "🎉 ¡Ganaste! El Caballo " + winner + " fue el ganador 🎉";
+                } else {
+                    document.getElementById("result").innerHTML = "❌ Perdiste. El ganador fue el Caballo " + winner;
+                }
+            }
+
+        }, 100);
+    }
+</script>
+<footer>
+    © 2025 Apuestas de Caballos — Diviértete responsablemente
+</footer>
+
+</body>
+</html>
