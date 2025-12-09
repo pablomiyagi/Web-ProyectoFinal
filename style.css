@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #121424;
+    background-color: #0f1220;
     color: #fff;
 }
 
@@ -15,9 +15,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 50px;
+    padding: 25px 80px;
     background-color: #1a1c2b;
-    position: sticky;
     top: 0;
     z-index: 1000;
 }
@@ -55,18 +54,6 @@ header .btn-login {
 
 header .btn-login:hover {
     background-color: #33e08a;
-}
-
-/* Botones generales */
-button {
-    cursor: pointer;
-    border-radius: 8px;
-    border: none;
-    transition: 0.3s;
-}
-
-button:hover {
-    opacity: 0.8;
 }
 
 /* Hero / Inicio */
