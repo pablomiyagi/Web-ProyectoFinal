@@ -48,6 +48,7 @@ header .btn-login {
     padding: 8px 18px;
     cursor: pointer;
     border-radius: 5px;
+    color: #fff;
     transition: 0.3s;
 }
 
@@ -58,21 +59,12 @@ header .btn-login:hover {
 header .user-balance {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #ffd700; /* <-- Este es el color amarillo/dorado */
+    color: #ffd700;
     padding: 5px 15px;
     border: 1px solid #ffd700;
     border-radius: 20px;
 }
 
-.btn-login {
-    background-color: #2a2d41;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-/* Contenedor Principal */
 .main-container {
     max-width: 900px;
     margin: 40px auto;
@@ -84,7 +76,6 @@ header .user-balance {
     font-size: 1.8rem;
 }
 
-/* Tabs */
 .tabs {
     display: flex;
     gap: 10px;
@@ -107,12 +98,11 @@ header .user-balance {
 }
 
 .tab-button.active {
-    background-color: #00cc66; /* Verde activo */
+    background-color: #00cc66;
     color: #fff;
     border-color: #00cc66;
 }
 
-/* Ligas */
 .league-container {
     display: none;
     animation: fadeIn 0.5s ease;
@@ -127,7 +117,6 @@ header .user-balance {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* TARJETA DE PARTIDO (Match Card) */
 .match-card {
     background-color: #1f2235;
     border-radius: 12px;
@@ -143,12 +132,11 @@ header .user-balance {
     color: #fff;
 }
 
-/* BARRA DE PROGRESO / PROBABILIDAD */
 .probability-bar {
     display: flex;
     width: 100%;
     height: 30px;
-    border-radius: 15px; /* Bordes muy redondeados */
+    border-radius: 15px;
     overflow: hidden;
     margin-bottom: 15px;
     background-color: #2a2d41;
@@ -162,18 +150,16 @@ header .user-balance {
     font-weight: bold;
     color: white;
     height: 100%;
-    width: 0%; /* Inicia en 0 para la animación */
-    transition: width 1s cubic-bezier(0.25, 1, 0.5, 1); /* Animación suave */
+    width: 0%; 
+    transition: width 1s cubic-bezier(0.25, 1, 0.5, 1);
     white-space: nowrap;
     overflow: hidden;
 }
 
-/* Colores de la barra */
-.segment-home { background-color: #00cc66; } /* Verde */
-.segment-draw { background-color: #ffaa33; } /* Naranja */
-.segment-away { background-color: #ff3344; } /* Rojo */
+.segment-home { background-color: #00cc66; } 
+.segment-draw { background-color: #ffaa33; } 
+.segment-away { background-color: #ff3344; }
 
-/* BOTONES DE APUESTA */
 .bet-actions {
     display: flex;
     gap: 10px;
@@ -181,10 +167,10 @@ header .user-balance {
 }
 
 .bet-btn {
-    background-color: #2a2d41; /* Fondo oscuro */
+    background-color: #2a2d41; 
     color: #fff;
     border: 1px solid #3a3d51;
-    border-radius: 20px; /* Forma de pastilla */
+    border-radius: 20px; 
     padding: 8px 15px;
     font-size: 0.85rem;
     cursor: pointer;
@@ -197,7 +183,6 @@ header .user-balance {
     border-color: #fff;
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 20px;

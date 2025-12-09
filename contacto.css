@@ -8,6 +8,7 @@
 body {
     background-color: #0f1220;
     color: #fff;
+    line-height: 1.5;
 }
 
 header {
@@ -48,6 +49,7 @@ header .btn-login {
     padding: 8px 18px;
     cursor: pointer;
     border-radius: 5px;
+    color: #fff; 
     transition: 0.3s;
 }
 
@@ -58,17 +60,17 @@ header .btn-login:hover {
 header .user-balance {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #ffd700; /* <-- Este es el color amarillo/dorado */
+    color: #ffd700; 
     padding: 5px 15px;
     border: 1px solid #ffd700;
     border-radius: 20px;
 }
 
-/* Hero */
 .hero {
     text-align: center;
-    background: #09c46b;
+    background: #00cc66; 
     padding: 60px 20px;
+    color: #fff;
 }
 
 .hero h1 {
@@ -84,23 +86,21 @@ header .user-balance {
 .btn {
     margin-top: 20px;
     background: white;
-    color: #09c46b;
+    color: #00cc66; 
     border: none;
     padding: 10px 25px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
+    transition: 0.3s;
 }
 
-/* Cards */
 .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 arriba */
-    grid-auto-rows: auto;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 30px;
 }
-
 
 .card {
     background: #1a1d2f;
@@ -113,7 +113,7 @@ header .user-balance {
 }
 
 .card:hover {
-    transform: translateY(-8px); /* se levanta */
+    transform: translateY(-8px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
 }
 
@@ -138,22 +138,13 @@ header .user-balance {
     opacity: 0.8;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    opacity: 0.6;
-    font-size: 14px;
-}
-
-
 .contact-section {
     max-width: 600px;
     margin: 60px auto;
     padding: 30px;
-    background-color: #1f2235; /* Fondo ligeramente levantado, oscuro */
+    background-color: #1f2235;
     border-radius: 12px;
-    border: 1px solid #3a3d51; /* Borde sutil */
+    border: 1px solid #3a3d51;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -163,31 +154,30 @@ footer {
     color: #fff;
     margin-bottom: 25px;
     padding-bottom: 10px;
-    border-bottom: 3px solid #00cc66; /* Línea de acento verde */
+    border-bottom: 3px solid #00cc66;
     display: inline-block;
 }
 
 .contact-info {
     font-size: 1rem;
     color: #e0e0e0;
-    line-height: 2.0; /* Espaciado generoso */
+    line-height: 2.0;
 }
 
 .contact-info p {
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 15px; /* Espacio entre el icono y el texto */
+    gap: 15px;
 }
 
 .contact-info p strong {
     font-weight: 600;
-    color: #ffd700; /* Dorado para destacar la etiqueta */
-    width: 80px; /* Ancho fijo para alinear las etiquetas */
+    color: #ffd700;
+    width: 80px;
     flex-shrink: 0;
 }
 
-/* Estilo para los enlaces de contacto (email, teléfono) */
 .contact-info a {
     color: #00cc66;
     text-decoration: none;
@@ -199,8 +189,15 @@ footer {
     text-decoration: underline;
 }
 
-/* Íconos (Requiere una librería de íconos como Font Awesome en tu HTML/CSS) */
 .contact-icon {
     color: #00cc66;
     font-size: 1.2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    opacity: 0.6;
+    font-size: 14px;
+    background-color: #1a1c2b;
 }
