@@ -14,9 +14,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 50px;
+    padding: 25px 80px;
     background-color: #1a1c2b;
-    position: sticky;
     top: 0;
     z-index: 1000;
 }
