@@ -172,3 +172,11 @@ footer {
     color: #aaa;
 }
 
+header .user-balance {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffd700; /* <-- Este es el color amarillo/dorado */
+    padding: 5px 15px;
+    border: 1px solid #ffd700;
+    border-radius: 20px;
+}

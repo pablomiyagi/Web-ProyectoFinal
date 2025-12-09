@@ -3,105 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VictoryZone - apuestas</title>
-    <link rel="stylesheet" href="style.css">
+    <title>VictoryZone - Apuestas de Caballos</title>
+    <link rel="stylesheet" href="apuestas.css">
 </head>
 
 <body>
-<header>
-    <div class="logo">Apuestas de Caballos</div>
-    <nav>
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="deportes.html">Deportes</a></li>
-            <li><a href="ruleta.html">Ruleta</a></li>
-            <li><a href="apuestas.html">Apuestas de caballos</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
-        </ul>
-    </nav>
-    <div class="user-balance">Saldo: <span id="balance">10000</span>€</div>
-    <button class="btn-login">Ingresar</button>
-</header>
+    <header>
+        <div class="logo">VictoryZone</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="deportes.html">Deportes</a></li>
+                <li><a href="ruleta.html">Ruleta</a></li>
+                <li><a href="apuestas.html" class="active-link">Apuestas de Caballos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="user-balance">Saldo: <span id="balance">10000</span>€</div>
+        <button class="btn-login">Ingresar</button>
+    </header>
 
-<section class="stats">
-    <div class="stat-card">
-        <h3>Caballos</h3>
-        <p>4 disponibles</p>
-    </div>
-    <div class="stat-card">
-        <h3>Último Ganador</h3>
-        <p id="lastWinner">N/A</p>
-    </div>
-</section>
+    <section class="main-content-apuestas">
+        <h2 class="section-title">Carreras de Caballos</h2>
 
-<div class="card" style="width: 90%; margin: auto;">
-    <h3>Selecciona tu caballo:</h3>
-    
-    <select id="betHorse">
-        <option value="1">Pegaso</option>
-        <option value="2">Ramoncin</option>
-        <option value="3">Bufalo</option>
-        <option value="4">Perdigon</option>
-    </select>
+        <div class="info-betting-area">
+            <div class="stats-cards-container">
+                <div class="stat-card">
+                    <h3>Caballos</h3>
+                    <p>4 en carrera</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Último Ganador</h3>
+                    <p id="lastWinner">N/A</p>
+                </div>
+            </div>
 
-    <button style="margin-top: 15px; padding: 10px 20px; background:#00cc66; color:white;" onclick="startRace()">
-        Apostar y comenzar carrera
-    </button>
-</div>
-<div class="race-track">
-    <div class="lane"><div class="horse" id="horse1"></div></div>
-    <div class="lane"><div class="horse" id="horse2"></div></div>
-    <div class="lane"><div class="horse" id="horse3"></div></div>
-    <div class="lane"><div class="horse" id="horse4"></div></div>
-</div>
+            <div class="betting-controls">
+                <h3>Haz tu apuesta:</h3>
+                
+                <div class="bet-selection">
+                    <label for="betHorse">Selecciona un Caballo:</label>
+                    <select id="betHorse">
+                        <option value="1">🐎 Pegaso (Cuota 2.5x)</option>
+                        <option value="2">🏇 Ramoncin (Cuota 3.0x)</option>
+                        <option value="3">🐴 Bufalo (Cuota 4.0x)</option>
+                        <option value="4">🐎 Perdigon (Cuota 3.5x)</option>
+                    </select>
+                </div>
 
-<h2 id="result"></h2>
-<script>
-    function startRace() {
-        const horses = [
-            document.getElementById("horse1"),
-            document.getElementById("horse2"),
-            document.getElementById("horse3"),
-            document.getElementById("horse4")
-        ];
+                <div class="bet-amount">
+                    <label for="betAmount">Cantidad a apostar:</label>
+                    <input type="number" id="betAmount" value="100" min="10" step="10">
+                </div>
 
-        const userBet = document.getElementById("betHorse").value;
-        const finishLine = document.querySelector(".race-track").offsetWidth - 70;
+                <button class="btn-start-race" onclick="placeBetAndStartRace()">
+                    Apostar y Comenzar Carrera
+                </button>
+                <p id="message" class="message-area"></p>
+            </div>
+        </div>
 
-        horses.forEach(h => h.style.left = "0px");
-        document.getElementById("result").innerHTML = "¡La carrera está en progreso!";
+        <div class="race-track-container">
+            <div class="start-line"></div>
+            <div class="finish-line">🏁</div>
+            <div class="race-track">
+                <div class="lane" id="lane-1">
+                    <img src="image.png" alt="Caballo 1" class="horse" id="horse1">
+                    <span class="horse-name">Pegaso</span>
+                </div>
+                <div class="lane" id="lane-2">
+                    <img src="image.png" alt="Caballo 2" class="horse" id="horse2">
+                    <span class="horse-name">Ramoncin</span>
+                </div>
+                <div class="lane" id="lane-3">
+                    <img src="image.png" alt="Caballo 3" class="horse" id="horse3">
+                    <span class="horse-name">Bufalo</span>
+                </div>
+                <div class="lane" id="lane-4">
+                    <img src="image.png" alt="Caballo 4" class="horse" id="horse4">
+                    <span class="horse-name">Perdigon</span>
+                </div>
+            </div>
+        </div>
 
-        let raceInterval = setInterval(() => {
-            let winner = null;
+        <h2 id="result" class="race-result"></h2>
+    </section>
 
-            horses.forEach((horse, index) => {
-                let currentPos = parseInt(horse.style.left);
-                let newPos = currentPos + Math.random() * 20;
-                horse.style.left = newPos + "px";
-
-                if (newPos >= finishLine && winner === null) {
-                    winner = index + 1;
-                }
-            });
-
-            if (winner !== null) {
-                clearInterval(raceInterval);
-
-                document.getElementById("lastWinner").innerText = "Caballo " + winner;
-
-                if (winner == userBet) {
-                    document.getElementById("result").innerHTML = "🎉 ¡Ganaste! El Caballo " + winner + " fue el ganador 🎉";
-                } else {
-                    document.getElementById("result").innerHTML = "❌ Perdiste. El ganador fue el Caballo " + winner;
-                }
-            }
-
-        }, 100);
-    }
-</script>
-<footer>
+    <footer>
         &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
 
+    <script src="apuestas.js"></script>
 </body>
 </html>
