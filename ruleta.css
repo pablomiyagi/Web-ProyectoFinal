@@ -335,3 +335,11 @@ footer {
     font-size: 1.2rem;
     color: #fff;
 }
+
+.section-title {
+    font-size: 2.2rem;
+    text-align: center;
+    color: #00cc66;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0,204,102,0.3);
+}
