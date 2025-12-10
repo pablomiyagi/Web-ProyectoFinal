@@ -31,57 +31,16 @@
         <section class="apuestas-content">
             <h2 class="section-title">Partidos de la Semana</h2>
             
+            <!-- PESTAÑAS CORRECTAS -->
             <div class="tabs">
-                <button class="tab-button active" onclick="openLeague('laliga')">LaLiga</button>
-                <button class="tab-button" onclick="openLeague('premier')">Premier League</button>
-                <button class="tab-button" onclick="openLeague('nfl')">NFL</button>
-                <button class="tab-button" onclick="openLeague('tenis')">Wimbledon</button>
+                <button class="tab-button active" data-league="laliga">LaLiga</button>
+                <button class="tab-button" data-league="premier">Premier League</button>
+                <button class="tab-button" data-league="nfl">NFL</button>
+                <button class="tab-button" data-league="tenis">Wimbledon</button>
             </div>
 
-            <div id="laliga" class="league-container active">
-                
-                <div class="match-card" data-match="Barcelona vs Real Madrid">
-                    <div class="match-header">Barcelona vs Real Madrid</div>
-                    <div class="probability-bar">
-                        <div class="prob-segment segment-home" style="width: 50%;">Local 50%</div>
-                        <div class="prob-segment segment-draw" style="width: 30%;">Empate 30%</div>
-                        <div class="prob-segment segment-away" style="width: 20%;">Visitante 20%</div>
-                    </div>
-                    <div class="bet-actions">
-                        <button class="bet-btn" data-result="Local" data-selection="Barcelona" data-odds="1.50">Apostar a Barcelona (1.50)</button>
-                        <button class="bet-btn" data-result="Empate" data-selection="Empate" data-odds="3.50">Apostar a Empate (3.50)</button>
-                        <button class="bet-btn" data-result="Visitante" data-selection="Real Madrid" data-odds="5.00">Apostar a Real Madrid (5.00)</button>
-                    </div>
-                </div>
-
-                <div class="match-card" data-match="Sevilla vs Atlético">
-                    <div class="match-header">Sevilla vs Atlético</div>
-                    <div class="probability-bar">
-                        <div class="prob-segment segment-home" style="width: 40%;">Local 40%</div>
-                        <div class="prob-segment segment-draw" style="width: 35%;">Empate 35%</div>
-                        <div class="prob-segment segment-away" style="width: 25%;">Visitante 25%</div>
-                    </div>
-                    <div class="bet-actions">
-                        <button class="bet-btn" data-result="Local" data-selection="Sevilla" data-odds="2.20">Apostar a Sevilla (2.20)</button>
-                        <button class="bet-btn" data-result="Empate" data-selection="Empate" data-odds="3.30">Apostar a Empate (3.30)</button>
-                        <button class="bet-btn" data-result="Visitante" data-selection="Atlético" data-odds="3.50">Apostar a Atlético (3.50)</button>
-                    </div>
-                </div>
-
-                <div class="match-card" data-match="Valencia vs Villarreal">
-                    <div class="match-header">Valencia vs Villarreal</div>
-                    <div class="probability-bar">
-                        <div class="prob-segment segment-home" style="width: 33%;">Local 33%</div>
-                        <div class="prob-segment segment-draw" style="width: 33%;">Empate 33%</div>
-                        <div class="prob-segment segment-away" style="width: 34%;">Visitante 34%</div>
-                    </div>
-                    <div class="bet-actions">
-                        <button class="bet-btn" data-result="Local" data-selection="Valencia" data-odds="3.00">Apostar a Valencia (3.00)</button>
-                        <button class="bet-btn" data-result="Empate" data-selection="Empate" data-odds="3.00">Apostar a Empate (3.00)</button>
-                        <button class="bet-btn" data-result="Visitante" data-selection="Villarreal" data-odds="3.20">Apostar a Villarreal (3.20)</button>
-                    </div>
-                </div>
-            </div>
+            <!-- CONTENEDORES VACÍOS (se rellenan con JS) -->
+            <div id="laliga" class="league-container active"></div>
             <div id="premier" class="league-container"></div>
             <div id="nfl" class="league-container"></div>
             <div id="tenis" class="league-container"></div>
@@ -107,9 +66,11 @@
         &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
 
-<script src="partidosData.js"></script> 
-<script src="deportes.js"></script>
-<script src="script.js"></script>
+    <!-- Orden correcto de scripts -->
+    <script src="script.js"></script> 
+    <script src="deportes.js"></script>
+    <script src="partidosdata.json"></script>
 
 </body>
 </html>
+
