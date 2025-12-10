@@ -15,8 +15,6 @@ body {
     color: #00cc66;
 }
 
-/* --- Estilos para el Nuevo Botón de Añadir Saldo --- */
-
 .btn-add-balance {
     background-color: #ffd700; /* Dorado/Amarillo, para destacarse */
     color: #0f1220; /* Color de texto oscuro */
