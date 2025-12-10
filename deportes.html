@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VictoryZone - Partidos</title>
-    <link rel="stylesheet" href="deportes.css">
+    <link rel="stylesheet" href="deportes.css"> 
 </head>
 <body>
     <header>
@@ -19,33 +19,67 @@
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
+
         <button class="btn-add-balance" onclick="alert('Funcionalidad de añadir saldo pendiente...')">
-        Añadir Saldo
+            Añadir Saldo
         </button>
         <div class="user-balance">Saldo: <span id="balance">10000</span>€</div>
         <button class="btn-login">Iniciar sesión</button>
     </header>
 
-    <section class="main-container">
-        <h2 class="section-title">Partidos de la Semana</h2>
+    <main class="main-layout">
         
-        <div class="tabs">
-            <button class="tab-button active" onclick="openLeague('laliga')">LaLiga</button>
-            <button class="tab-button" onclick="openLeague('premier')">Premier League</button>
-            <button class="tab-button" onclick="openLeague('nfl')">NFL</button>
-            <button class="tab-button" onclick="openLeague('tenis')">Wimbledon</button>
-        </div>
+        <section class="apuestas-content">
+            <h2 class="section-title">Partidos de la Semana</h2>
 
-        <div id="laliga" class="league-container active"></div>
-        <div id="premier" class="league-container"></div>
-        <div id="nfl" class="league-container"></div>
-        <div id="tenis" class="league-container"></div>
-    </section>
+            <!-- PESTAÑAS -->
+            <div class="tabs">
+                <button class="tab-button active" data-league="laliga">LaLiga</button>
+                <button class="tab-button" data-league="premier">Premier League</button>
+                <button class="tab-button" data-league="nfl">NFL</button>
+                <button class="tab-button" data-league="tenis">Wimbledon</button>
+            </div>
+
+            <!-- CONTENEDORES RELLENADOS POR JS -->
+            <div id="laliga" class="league-container active"></div>
+            <div id="premier" class="league-container"></div>
+            <div id="nfl" class="league-container"></div>
+            <div id="tenis" class="league-container"></div>
+
+            <!-- Mensaje de límite por partido -->
+            <div id="limit-warning" class="limit-warning" style="display:none;">
+                Ya tienes una apuesta activa en este partido. Elimínala o edítala para cambiar tu selección.
+            </div>
+
+        </section>
+
+        <!-- PANEL DE APUESTAS -->
+        <aside id="apuestas-panel" class="apuestas-panel">
+            <h3>Talón de Apuestas</h3>
+
+            <div id="apuestas-list">
+                <p class="placeholder-msg">Haz clic en 'Apostar a...' para empezar.</p>
+            </div>
+
+            <div id="total-info" class="total-info hidden">
+                <p>Apuestas: <span id="total-count">0</span></p>
+                <p>Monto total: <span id="total-amount">0.00</span>€</p>
+                <p>Ganancia potencial: <span id="total-payout">0.00</span>€</p>
+                <button id="btn-place-all" class="btn-primary" disabled>Confirmar Apuestas</button>
+            </div>
+        </aside>
+
+    </main>
 
     <footer>
         &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
 
-    <script src="script.js"></script>
+    <!-- ORDEN CORRECTO -->
+    <script src="script.js"></script> 
+    <script src="deportes.js"></script>
+
 </body>
 </html>
+
+
