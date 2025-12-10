@@ -10,6 +10,10 @@ body {
     color: #fff;
 }
 
+.sitio{
+    color: #00cc66;
+}
+
 header {
     display: flex;
     justify-content: space-between;
