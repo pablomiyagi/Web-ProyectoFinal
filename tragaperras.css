@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: radial-gradient(circle, #111428, #05060c);
+    color: #fff;
+}
+
+/* SLOT WRAPPER */
+.slot-wrapper {
+    max-width: 680px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+.slot-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-shadow: 0 0 12px #00ff99;
+}
+
+/* MARCO PROFESIONAL */
+.slot-machine {
+    background: #1a1d2f;
+    padding: 25px;
+    border-radius: 18px;
+    position: relative;
+    border: 6px solid #24283d;
+    box-shadow: 0 0 40px rgba(0, 255, 160, 0.3), inset 0 0 25px rgba(0, 255, 160, 0.15);
+}
+
+/* Borde luminoso */
+.slot-machine::before {
+    content: "";
+    position: absolute;
+    inset: -12px;
+    border-radius: 22px;
+    background: linear-gradient(45deg, #00ff99, #00cc66, #00994d);
+    filter: blur(15px) brightness(0.7);
+    z-index: -1;
+}
+
+/* REELS */
+.reels {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+
+.reel {
+    width: 120px;
+    height: 120px;
+    border: 4px solid #00cc66;
+    border-radius: 14px;
+    background: #0f1220;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 58px;
+    font-weight: bold;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0,255,150,0.2);
+    transition: transform 0.15s;
+}
+
+.spin-anim {
+    animation: blurSpin 0.12s infinite linear;
+}
+
+@keyframes blurSpin {
+    0% { filter: blur(0px); }
+    100% { filter: blur(3px); }
+}
+
+/* BOTÓN */
+.btn-spin {
+    background: linear-gradient(180deg, #00e28a, #00b76d);
+    color: #fff;
+    padding: 14px 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 0 12px rgba(0,255,150,0.4);
+    transition: 0.3s;
+}
+
+.btn-spin:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(0,255,150,0.6);
+}
+
+/* RESULTADO */
+#result {
+    margin-top: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 10px #ffea00;
+}
+
+/* EFECTO VIBRACIÓN */
+.shake {
+    animation: shakeAnim 0.25s ease-in-out infinite;
+}
+
+@keyframes shakeAnim {
+    0%   { transform: translateX(0px); }
+    25%  { transform: translateX(3px); }
+    50%  { transform: translateX(0px); }
+    75%  { transform: translateX(-3px); }
+    100% { transform: translateX(0px); }
+}
+
+/* PALANCA DECORATIVA */
+.lever {
+    width: 35px;
+    height: 140px;
+    background: #303444;
+    border-radius: 18px;
+    position: absolute;
+    right: -60px;
+    top: 40px;
+    box-shadow: 0 0 15px rgba(0,255,150,0.4);
+}
+
+.lever-ball {
+    width: 55px;
+    height: 55px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    box-shadow: 0 0 10px rgba(255,0,0,0.6);
+}
+
+.lever.active {
+    animation: leverPull 0.4s ease forwards;
+}
+
+@keyframes leverPull {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(35deg); }
+}
+
+/* ANIMACIÓN JACKPOT */
+.jackpot-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 18px;
+    animation: fadeInJackpot 0.4s ease forwards;
+}
+
+@keyframes fadeInJackpot {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.jackpot-text {
+    font-size: 70px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 25px #ffea00, 0 0 60px #ffea00;
+    animation: jackpotBlink 0.7s infinite alternate ease-in-out;
+}
+
+@keyframes jackpotBlink {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.2); opacity: 0.4; }
+}
+
+/* PARTÍCULAS */
+.jackpot-particle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #ffea00, #ff9900);
+    border-radius: 50%;
+    animation: particleFly 1.4s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes particleFly {
+    0% {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Borde parpadeante */
+.jackpot-border {
+    animation: borderFlash 0.25s infinite alternate;
+}
+
+@keyframes borderFlash {
+    0% { box-shadow: 0 0 20px rgba(255,215,0,0.4); }
+    100% { box-shadow: 0 0 40px rgba(255,215,0,0.9); }
+}

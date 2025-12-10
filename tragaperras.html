@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slot Machine</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <header>
+        <div class="logo">VictoryZone</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="deportes.html">Deportes</a></li>
+                <li><a href="ruleta.html">Ruleta</a></li>
+                <li><a href="apuestas.html">Apuestas de caballos</a></li>
+                <li><a href="tragaperras.html">Tragaperras</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="user-balance">Saldo: <span id="balance">10000</span>€</div>
+        <button class="btn-login">Iniciar sesión</button>
+    </header>
+<section class="slot-wrapper">
+    <h1 class="slot-title">Slot Machine (Juego sin apuestas)</h1>
+
+    <div class="slot-machine" id="machine">
+    <div id="jackpot-container"></div>
+
+        <div class="lever" id="lever">
+            <div class="lever-ball"></div>
+        </div>
+
+        <div class="reels">
+            <div class="reel" id="reel1">🍒</div>
+            <div class="reel" id="reel2">🍋</div>
+            <div class="reel" id="reel3">⭐</div>
+        </div>
+
+        <button class="btn-spin" onclick="spin()">Girar</button>
+
+        <p id="result"></p>
+    </div>
+
+    <!-- Audios -->
+    <audio id="sound-spin">
+        <source src="roulette-game-429833.mp3" type="audio/wav">
+    </audio>
+
+    <audio id="sound-stop">
+        <source src="winner-game-sound-404167.mp3" type="audio/wav">
+    </audio>
+
+</section>
+
+<script src="main.js"></script>
+</body>
+</html>
+
