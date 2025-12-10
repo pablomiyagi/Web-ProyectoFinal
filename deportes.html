@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VictoryZone - Partidos</title>
     <link rel="stylesheet" href="deportes.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -32,28 +33,24 @@
         <section class="apuestas-content">
             <h2 class="section-title">Partidos de la Semana</h2>
 
-            <!-- PESTAÑAS -->
             <div class="tabs">
-                <button class="tab-button active" data-league="laliga">LaLiga</button>
+                <button class="tab-button active-tab-button" data-league="laliga">LaLiga</button> 
                 <button class="tab-button" data-league="premier">Premier League</button>
                 <button class="tab-button" data-league="nfl">NFL</button>
                 <button class="tab-button" data-league="tenis">Wimbledon</button>
             </div>
 
-            <!-- CONTENEDORES RELLENADOS POR JS -->
             <div id="laliga" class="league-container active"></div>
             <div id="premier" class="league-container"></div>
             <div id="nfl" class="league-container"></div>
             <div id="tenis" class="league-container"></div>
 
-            <!-- Mensaje de límite por partido -->
             <div id="limit-warning" class="limit-warning" style="display:none;">
                 Ya tienes una apuesta activa en este partido. Elimínala o edítala para cambiar tu selección.
             </div>
 
         </section>
 
-        <!-- PANEL DE APUESTAS -->
         <aside id="apuestas-panel" class="apuestas-panel">
             <h3>Talón de Apuestas</h3>
 
@@ -75,9 +72,7 @@
         &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
 
-    <!-- ORDEN CORRECTO -->
     <script src="script.js"></script> 
-    <script src="deportes.js"></script>
 
 </body>
 </html>
