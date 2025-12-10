@@ -333,6 +333,50 @@ header .btn-login:hover {
     text-shadow: 0 0 10px rgba(0,204,102,0.3);
 }
 
+.stats-panel {
+    width: 180px;
+    background-color: rgba(0,0,0,0.6);
+    border: 2px solid #00cc66;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: #fff;
+    font-weight: bold;
+    flex-shrink: 0;
+    height: fit-content;
+}
+
+.stats-panel h3 {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #ffd700;
+    text-align: center;
+    text-shadow: 0 0 5px #00cc66;
+}
+
+.stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.stats-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 6px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.stats-item.red { background-color: #d32f2f; }
+.stats-item.black { background-color: #222; }
+.stats-item.green { background-color: #00cc66; }
+
+
 footer {
     text-align: center;
     padding: 20px;
