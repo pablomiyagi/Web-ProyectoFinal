@@ -362,6 +362,31 @@ header .btn-login:hover {
     flex-direction: column;
     gap: 5px;
 }
+
+.btn-add-balance {
+    background-color: #ffd700; /* Dorado/Amarillo, para destacarse */
+    color: #0f1220; /* Color de texto oscuro */
+    border: none;
+    padding: 10px 20px;
+    margin: 0 30px; /* Margen para separarlo de 'Contacto' y del 'Saldo' */
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+}
+
+.btn-add-balance:hover {
+    background-color: #ffe873; /* Un color un poco más claro al pasar el ratón */
+    transform: translateY(-1px);
+}
+
+.btn-add-balance:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
 .stats-item {
     display: flex;
     justify-content: space-between;

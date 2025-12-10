@@ -15,6 +15,33 @@ body {
     color: #00cc66;
 }
 
+.btn-add-balance {
+    background-color: #ffd700; /* Dorado/Amarillo, para destacarse */
+    color: #0f1220; /* Color de texto oscuro */
+    border: none;
+    padding: 10px 20px;
+    margin: 0 30px; /* Margen para separarlo de 'Contacto' y del 'Saldo' */
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+}
+
+.btn-add-balance:hover {
+    background-color: #ffe873; /* Un color un poco más claro al pasar el ratón */
+    transform: translateY(-1px);
+}
+
+.btn-add-balance:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+
+/* Estilos de Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -70,12 +97,22 @@ header .btn-login:hover {
     background-color: #33e08a;
 }
 
-.main-container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 20px;
+/* NUEVA MAQUETACIÓN: Contenedor principal con Grid */
+.main-layout {
+    display: grid;
+    /* Divide la pantalla en 3/4 para el contenido y 1/4 para el panel */
+    grid-template-columns: 3fr 1fr; 
+    gap: 30px;
+    padding: 40px 80px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
+.apuestas-content {
+    /* Contenido de la izquierda (Partidos) */
+}
+
+/* Estilos originales de la sección de partidos */
 .section-title {
     margin-bottom: 20px;
     font-size: 1.8rem;
@@ -109,13 +146,14 @@ header .btn-login:hover {
 }
 
 .league-container {
-    display: none;
+    /* display: none; */ /* Descomenta esto si usas JS para mostrar/ocultar */
     animation: fadeIn 0.5s ease;
 }
 
-.league-container.active {
-    display: block;
+.league-container:not(.active) {
+     display: none;
 }
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -155,10 +193,11 @@ header .btn-login:hover {
     font-weight: bold;
     color: white;
     height: 100%;
-    width: 0%; 
+    /* width: 0%;  */ /* Comentado para mostrar los valores por defecto */
     transition: width 1s cubic-bezier(0.25, 1, 0.5, 1);
     white-space: nowrap;
     overflow: hidden;
+    padding: 0 5px;
 }
 
 .segment-home { background-color: #00cc66; } 
@@ -183,15 +222,269 @@ header .btn-login:hover {
 }
 
 .bet-btn:hover {
-    background-color: #fff;
-    color: #000;
-    border-color: #fff;
+    background-color: #00cc66; /* Cambiado de blanco a verde */
+    color: #fff;
+    border-color: #00cc66;
 }
 
+/* ------------------------------------------- */
+/* ESTILOS DEL PANEL LATERAL DERECHO           */
+/* ------------------------------------------- */
+
+.apuestas-panel {
+    background-color: #1a1c2b;
+    border: 1px solid #00cc66;
+    border-radius: 10px;
+    padding: 20px;
+    color: #fff;
+    height: fit-content;
+    box-shadow: 0 0 15px rgba(0, 204, 102, 0.2);
+    position: sticky; 
+    top: 20px; 
+}
+
+.apuestas-panel h3 {
+    color: #ffd700;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.placeholder-msg {
+    color: #999;
+    text-align: center;
+    font-style: italic;
+    padding: 40px 0;
+}
+
+.bet-item {
+    background-color: #2a2d41;
+    border-left: 3px solid #00cc66;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.bet-item p {
+    margin: 5px 0;
+}
+
+.bet-item strong {
+    color: #fff;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.bet-item input[type="number"] {
+    width: 70px;
+    padding: 5px;
+    border: 1px solid #555;
+    background-color: #1a1c2b;
+    color: #fff;
+    border-radius: 3px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.bet-item .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: #ff3344;
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+}
+
+/* Sección de Totales */
+.total-info {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #555;
+}
+
+.total-info p {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#btn-place-all {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: #00cc66;
+    color: #0f1220;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.3s, background-color 0.3s;
+}
+
+#btn-place-all:hover:not(:disabled) {
+    background-color: #33e08a;
+}
+
+#btn-place-all:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Footer */
 footer {
     text-align: center;
     padding: 20px;
     opacity: 0.6;
     font-size: 14px;
     background-color: #1a1c2b; 
+}
+
+
+#lista-apuestas {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.bet-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 14px 18px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+}
+
+.bet-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+/* Texto dentro de la tarjeta */
+.bet-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.bet-item.editing {
+    border-color: #1976d2;
+    background: #e9f2ff;
+}
+
+.bet-edit-input {
+    width: 70%;
+    padding: 6px 8px;
+    font-size: 14px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    outline: none;
+}
+
+.bet-edit-input:focus {
+    border-color: #1976d2;
+}
+
+.bet-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Botón base */
+.bet-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+/* Botón editar */
+.bet-btn-edit {
+    background: #1976d2;
+    color: white;
+}
+
+.bet-btn-edit:hover {
+    background: #0f5cab;
+}
+
+/* Botón eliminar */
+.bet-btn-delete {
+    background: #d32f2f;
+    color: white;
+}
+
+.bet-btn-delete:hover {
+    background: #a82828;
+}
+
+.bet-btn.disabled,
+.bet-disabled {
+    background: #bdbdbd !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+}
+
+/* Bloquea tarjeta si está limitada */
+.bet-item.bet-disabled {
+    pointer-events: none;
+    opacity: 0.55;
+}
+
+.limit-warning {
+    background: #fff8e1;
+    color: #b88600;
+    padding: 10px 14px;
+    border: 1px solid #ffe6a1;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: #1976d2;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #0f5cab;
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: #cacaca;
 }
