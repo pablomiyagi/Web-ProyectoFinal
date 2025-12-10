@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VictoryZone - Partidos</title>
-    <link rel="stylesheet" href="deportes.css">
+    <link rel="stylesheet" href="deportes.css"> 
 </head>
 <body>
     <header>
@@ -20,32 +20,96 @@
             </ul>
         </nav>
         <button class="btn-add-balance" onclick="alert('Funcionalidad de añadir saldo pendiente...')">
-        Añadir Saldo
+            Añadir Saldo
         </button>
         <div class="user-balance">Saldo: <span id="balance">10000</span>€</div>
         <button class="btn-login">Iniciar sesión</button>
     </header>
 
-    <section class="main-container">
-        <h2 class="section-title">Partidos de la Semana</h2>
+    <main class="main-layout">
         
-        <div class="tabs">
-            <button class="tab-button active" onclick="openLeague('laliga')">LaLiga</button>
-            <button class="tab-button" onclick="openLeague('premier')">Premier League</button>
-            <button class="tab-button" onclick="openLeague('nfl')">NFL</button>
-            <button class="tab-button" onclick="openLeague('tenis')">Wimbledon</button>
-        </div>
+        <section class="apuestas-content">
+            <h2 class="section-title">Partidos de la Semana</h2>
+            
+            <div class="tabs">
+                <button class="tab-button active" onclick="openLeague('laliga')">LaLiga</button>
+                <button class="tab-button" onclick="openLeague('premier')">Premier League</button>
+                <button class="tab-button" onclick="openLeague('nfl')">NFL</button>
+                <button class="tab-button" onclick="openLeague('tenis')">Wimbledon</button>
+            </div>
 
-        <div id="laliga" class="league-container active"></div>
-        <div id="premier" class="league-container"></div>
-        <div id="nfl" class="league-container"></div>
-        <div id="tenis" class="league-container"></div>
-    </section>
+            <div id="laliga" class="league-container active">
+                
+                <div class="match-card" data-match="Barcelona vs Real Madrid">
+                    <div class="match-header">Barcelona vs Real Madrid</div>
+                    <div class="probability-bar">
+                        <div class="prob-segment segment-home" style="width: 50%;">Local 50%</div>
+                        <div class="prob-segment segment-draw" style="width: 30%;">Empate 30%</div>
+                        <div class="prob-segment segment-away" style="width: 20%;">Visitante 20%</div>
+                    </div>
+                    <div class="bet-actions">
+                        <button class="bet-btn" data-result="Local" data-selection="Barcelona" data-odds="1.50">Apostar a Barcelona (1.50)</button>
+                        <button class="bet-btn" data-result="Empate" data-selection="Empate" data-odds="3.50">Apostar a Empate (3.50)</button>
+                        <button class="bet-btn" data-result="Visitante" data-selection="Real Madrid" data-odds="5.00">Apostar a Real Madrid (5.00)</button>
+                    </div>
+                </div>
+
+                <div class="match-card" data-match="Sevilla vs Atlético">
+                    <div class="match-header">Sevilla vs Atlético</div>
+                    <div class="probability-bar">
+                        <div class="prob-segment segment-home" style="width: 40%;">Local 40%</div>
+                        <div class="prob-segment segment-draw" style="width: 35%;">Empate 35%</div>
+                        <div class="prob-segment segment-away" style="width: 25%;">Visitante 25%</div>
+                    </div>
+                    <div class="bet-actions">
+                        <button class="bet-btn" data-result="Local" data-selection="Sevilla" data-odds="2.20">Apostar a Sevilla (2.20)</button>
+                        <button class="bet-btn" data-result="Empate" data-selection="Empate" data-odds="3.30">Apostar a Empate (3.30)</button>
+                        <button class="bet-btn" data-result="Visitante" data-selection="Atlético" data-odds="3.50">Apostar a Atlético (3.50)</button>
+                    </div>
+                </div>
+
+                <div class="match-card" data-match="Valencia vs Villarreal">
+                    <div class="match-header">Valencia vs Villarreal</div>
+                    <div class="probability-bar">
+                        <div class="prob-segment segment-home" style="width: 33%;">Local 33%</div>
+                        <div class="prob-segment segment-draw" style="width: 33%;">Empate 33%</div>
+                        <div class="prob-segment segment-away" style="width: 34%;">Visitante 34%</div>
+                    </div>
+                    <div class="bet-actions">
+                        <button class="bet-btn" data-result="Local" data-selection="Valencia" data-odds="3.00">Apostar a Valencia (3.00)</button>
+                        <button class="bet-btn" data-result="Empate" data-selection="Empate" data-odds="3.00">Apostar a Empate (3.00)</button>
+                        <button class="bet-btn" data-result="Visitante" data-selection="Villarreal" data-odds="3.20">Apostar a Villarreal (3.20)</button>
+                    </div>
+                </div>
+            </div>
+            <div id="premier" class="league-container"></div>
+            <div id="nfl" class="league-container"></div>
+            <div id="tenis" class="league-container"></div>
+            
+        </section>
+
+        <aside id="apuestas-panel" class="apuestas-panel">
+            <h3>Talón de Apuestas</h3>
+            <div id="apuestas-list">
+                <p class="placeholder-msg">Haz clic en 'Apostar a...' para empezar.</p>
+            </div>
+
+            <div id="total-info" class="total-info hidden">
+                <p>Apuestas: <span id="total-count">0</span></p>
+                <p>Monto total: <span id="total-amount">0.00</span>€</p>
+                <p>Ganancia potencial: <span id="total-payout">0.00</span>€</p>
+                <button id="btn-place-all" disabled>Confirmar Apuestas</button>
+            </div>
+        </aside>
+    </main>
 
     <footer>
         &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
 
-    <script src="script.js"></script>
+<script src="partidosData.js"></script> 
+<script src="deportes.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>

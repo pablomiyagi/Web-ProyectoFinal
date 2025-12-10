@@ -1,114 +1,174 @@
-// ---------------------------
-// DATOS DE LOS PARTIDOS
-// ---------------------------
-// probL: Probabilidad Local, probE: Empate, probV: Visitante
-const partidosData = {
-    laliga: [
-        { local: "Barcelona", visitante: "Real Madrid", probL: 50, probE: 30, probV: 20 },
-        { local: "Sevilla", visitante: "Atlético", probL: 40, probE: 35, probV: 25 },
-        { local: "Valencia", visitante: "Villarreal", probL: 33, probE: 33, probV: 34 }
-    ],
-    premier: [
-        { local: "Liverpool", visitante: "Man. United", probL: 55, probE: 25, probV: 20 },
-        { local: "Arsenal", visitante: "Chelsea", probL: 50, probE: 30, probV: 20 },
-        { local: "Man. City", visitante: "Tottenham", probL: 60, probE: 20, probV: 20 }
-    ],
-    nfl: [
-        { local: "Chiefs", visitante: "Bills", probL: 60, probE: 0, probV: 40 },
-        { local: "Eagles", visitante: "Cowboys", probL: 45, probE: 0, probV: 55 },
-        { local: "49ers", visitante: "Ravens", probL: 50, probE: 0, probV: 50 }
-    ],
-    tenis: [
-        { local: "Alcaraz", visitante: "Djokovic", probL: 55, probE: 0, probV: 45 },
-        { local: "Sinner", visitante: "Nadal", probL: 70, probE: 0, probV: 30 },
-        { local: "Medvedev", visitante: "Zverev", probL: 48, probE: 0, probV: 52 }
-    ]
-};
+// =======================================================
+// apuestas.js (Lógica para gestionar el talón de apuestas)
+// =======================================================
 
-// ---------------------------
-// CAMBIO DE PESTAÑAS
-// ---------------------------
-function openLeague(leagueName) {
-    // 1. Gestionar clases visuales de los botones
-    document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-    const activeBtn = [...document.querySelectorAll(".tab-button")]
-        .find(btn => btn.onclick.toString().includes(leagueName));
-    if(activeBtn) activeBtn.classList.add("active");
+let currentBets = []; // Array para almacenar las apuestas activas
+const apuestasList = document.getElementById('apuestas-list');
+const totalInfoDiv = document.getElementById('total-info');
+const totalCountSpan = document.getElementById('total-count');
+const totalAmountSpan = document.getElementById('total-amount');
+const totalPayoutSpan = document.getElementById('total-payout');
+const btnPlaceAll = document.getElementById('btn-place-all');
 
-    // 2. Ocultar todos los contenedores y mostrar el seleccionado
-    document.querySelectorAll(".league-container").forEach(div => div.classList.remove("active"));
-    document.getElementById(leagueName).classList.add("active");
+// ------------------------------------
+// FUNCIONES DE UTILIDAD
+// ------------------------------------
 
-    // 3. Cargar los datos
-    loadMatches(leagueName);
+/**
+ * Genera un ID único para la apuesta.
+ */
+function generateBetId(matchId, betResult) {
+    // Combina el ID único del partido con el resultado (Local, Empate, Visitante)
+    return `${matchId}_${betResult}`;
 }
 
-// ---------------------------
-// CARGAR PARTIDOS Y ANIMACIONES
-// ---------------------------
-function loadMatches(leagueName) {
-    const container = document.getElementById(leagueName);
-    container.innerHTML = ""; // Limpiar contenido anterior
+/**
+ * Actualiza el resumen de totales (cantidad de apuestas, monto total, ganancia potencial).
+ */
+function updateTotals() {
+    if (currentBets.length === 0) {
+        // Muestra el mensaje de marcador de posición si no hay apuestas
+        if (totalInfoDiv) totalInfoDiv.classList.add('hidden');
+        if (apuestasList) apuestasList.innerHTML = '<p class="placeholder-msg">Haz clic en \'Apostar a...\' para empezar.</p>';
+        if (btnPlaceAll) btnPlaceAll.disabled = true;
+        return;
+    }
 
-    const partidos = partidosData[leagueName];
+    let totalAmount = 0;
+    let combinedOdds = 1.0; 
+    
+    // Si tienes múltiples apuestas, se asume que es una apuesta combinada (parlay)
+    currentBets.forEach(bet => {
+        totalAmount += parseFloat(bet.monto); 
+        combinedOdds *= parseFloat(bet.odds);
+    });
 
-    partidos.forEach((p, index) => {
-        // Crear tarjeta
-        const card = document.createElement("div");
-        card.classList.add("match-card");
+    if (totalInfoDiv) totalInfoDiv.classList.remove('hidden');
+    if (totalCountSpan) totalCountSpan.textContent = currentBets.length;
+    // En una combinada, el monto total es la suma de los montos individuales (simplificado) o un monto único.
+    // Aquí usamos la suma para el monto total visible y las cuotas multiplicadas.
+    if (totalAmountSpan) totalAmountSpan.textContent = totalAmount.toFixed(2);
+    
+    // Ganancia potencial (multiplicando cuotas)
+    if (totalPayoutSpan) totalPayoutSpan.textContent = (currentBets[0].monto * combinedOdds).toFixed(2); 
+    if (btnPlaceAll) btnPlaceAll.disabled = false;
+}
 
-        // Lógica para ocultar el botón de empate si la probabilidad es 0 (ej. Tenis/NFL)
-        const showDraw = p.probE > 0;
+/**
+ * Renderiza la lista de apuestas en el panel lateral.
+ */
+function renderApuestasPanel() {
+    if (!apuestasList) return;
+    apuestasList.innerHTML = '';
+
+    currentBets.forEach(bet => {
+        const betDiv = document.createElement('div');
+        betDiv.classList.add('bet-item');
+        betDiv.setAttribute('data-id', bet.id);
         
-        // Generar HTML interno
-        card.innerHTML = `
-            <div class="match-header">
-                ${p.local} vs ${p.visitante}
-            </div>
-
-            <div class="probability-bar">
-                <div class="prob-segment segment-home" id="bar-home-${leagueName}-${index}" style="width: 0%">
-                    Local ${p.probL}%
-                </div>
-                ${showDraw ? `
-                <div class="prob-segment segment-draw" id="bar-draw-${leagueName}-${index}" style="width: 0%">
-                    Empate ${p.probE}%
-                </div>` : ''}
-                <div class="prob-segment segment-away" id="bar-away-${leagueName}-${index}" style="width: 0%">
-                    Visitante ${p.probV}%
-                </div>
-            </div>
-
-            <div class="bet-actions">
-                <button class="bet-btn" onclick="apostar('${p.local}')">Apostar a ${p.local}</button>
-                ${showDraw ? `<button class="bet-btn" onclick="apostar('Empate')">Apostar a Empate</button>` : ''}
-                <button class="bet-btn" onclick="apostar('${p.visitante}')">Apostar a ${p.visitante}</button>
+        betDiv.innerHTML = `
+            <p><strong>${bet.partido}</strong></p>
+            <p class="selection-detail">${bet.selection} <span class="odds-display">(${bet.odds.toFixed(2)})</span></p>
+            <div class="bet-input-group">
+                <label for="amount-${bet.id}">Monto (€):</label>
+                <input type="number" id="amount-${bet.id}" 
+                    value="${bet.monto.toFixed(2)}" min="0.50" step="0.50" 
+                    data-id="${bet.id}" class="bet-amount-input">
+                <button class="btn-remove-bet" data-id="${bet.id}">X</button>
             </div>
         `;
+        apuestasList.appendChild(betDiv);
+    });
+    
+    // Añadir event listeners a los inputs y botones de eliminar
+    document.querySelectorAll('.bet-amount-input').forEach(input => {
+        input.addEventListener('input', updateBetAmount);
+    });
 
-        container.appendChild(card);
+    document.querySelectorAll('.btn-remove-bet').forEach(button => {
+        button.addEventListener('click', (e) => removeBet(e.target.dataset.id));
+    });
 
-        // ---------------------------
-        // TRIGGER ANIMACIÓN
-        // ---------------------------
-        // Usamos setTimeout para dar tiempo al navegador a renderizar el ancho 0%
-        // y luego aplicar la transición al nuevo ancho.
-        setTimeout(() => {
-            document.getElementById(`bar-home-${leagueName}-${index}`).style.width = `${p.probL}%`;
-            if(showDraw) {
-                document.getElementById(`bar-draw-${leagueName}-${index}`).style.width = `${p.probE}%`;
-            }
-            document.getElementById(`bar-away-${leagueName}-${index}`).style.width = `${p.probV}%`;
-        }, 100);
+    updateTotals();
+}
+
+/**
+ * Elimina una apuesta.
+ */
+function removeBet(idToRemove) {
+    currentBets = currentBets.filter(bet => bet.id !== idToRemove);
+    renderApuestasPanel();
+}
+
+/**
+ * Actualiza el monto de una apuesta individual.
+ */
+function updateBetAmount(e) {
+    const id = e.target.dataset.id;
+    let newAmount = parseFloat(e.target.value);
+    
+    if (isNaN(newAmount) || newAmount < 0.50) {
+        newAmount = 0.50; 
+        e.target.value = newAmount.toFixed(2);
+    }
+    
+    const betIndex = currentBets.findIndex(bet => bet.id === id);
+    if (betIndex !== -1) {
+        currentBets[betIndex].monto = newAmount;
+        updateTotals(); 
+    }
+}
+
+
+// ----------------------------------------------------
+// EVENT LISTENER PRINCIPAL
+// ----------------------------------------------------
+
+document.addEventListener('click', (e) => {
+    // Escucha los clics en los botones de "Apostar" generados por deportes.js
+    if (e.target.classList.contains('bet-btn')) {
+        const btn = e.target;
+        
+        const partido = btn.closest('.match-card').dataset.match;
+        const matchId = btn.closest('.match-card').dataset.id; 
+        const selection = btn.dataset.selection;
+        const odds = parseFloat(btn.dataset.odds);
+        const betResult = btn.dataset.result; 
+        
+        const newBet = {
+            id: generateBetId(matchId, betResult),
+            partido: partido,
+            selection: selection,
+            odds: odds,
+            monto: 5.00 
+        };
+        
+        // Evitar duplicados
+        const existingIndex = currentBets.findIndex(bet => bet.id === newBet.id);
+        
+        if (existingIndex === -1) {
+            currentBets.push(newBet);
+        } else {
+            alert(`¡El pronóstico "${selection}" para "${partido}" ya está en tu talón!`);
+            return;
+        }
+
+        renderApuestasPanel();
+    }
+});
+
+// Event listener para el botón final de "Apostar" (simulación)
+if (btnPlaceAll) {
+    btnPlaceAll.addEventListener('click', () => {
+        if (currentBets.length > 0) {
+            alert(`¡Apuestas realizadas con éxito! Total apostado: €${totalAmountSpan.textContent}. Ganancia potencial: €${totalPayoutSpan.textContent}.`);
+            currentBets = []; 
+            renderApuestasPanel();
+        } else {
+            alert("Tu talón de apuestas está vacío.");
+        }
     });
 }
 
-function apostar(seleccion) {
-    alert(`¡Has apostado por: ${seleccion}! Mucha suerte.`);
-}
-
-// Inicializar
-document.addEventListener("DOMContentLoaded", () => {
-    openLeague('laliga');
-});
-
+// Inicializar el panel de apuestas al cargar
+document.addEventListener('DOMContentLoaded', renderApuestasPanel);
