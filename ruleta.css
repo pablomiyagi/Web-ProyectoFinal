@@ -6,9 +6,9 @@
 }
 
 body {
-    background-color: #121424;
+    background-color: #0f1220;
     color: #fff;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .sitio{
@@ -23,7 +23,6 @@ header {
     background-color: #1a1c2b;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 header .logo {
@@ -63,22 +62,12 @@ header .btn-login {
     padding: 8px 18px;
     cursor: pointer;
     border-radius: 5px;
-    color: #1a1c2b;
-    font-weight: 600;
+    color: #fff; 
     transition: 0.3s;
 }
 
 header .btn-login:hover {
     background-color: #33e08a;
-}
-
-footer {
-    padding: 20px;
-    text-align: center;
-    background-color: #1a1c2b;
-    margin-top: 30px;
-    font-size: 0.9rem;
-    color: #aaa;
 }
 
 .casino-table {

@@ -8,6 +8,7 @@
 body {
     background-color: #0f1220;
     color: #fff;
+    line-height: 1.5;
 }
 
 .sitio{
@@ -46,20 +47,6 @@ header nav ul li a:hover {
     color: #00cc66;
 }
 
-header .btn-login {
-    background-color: #00cc66;
-    border: none;
-    padding: 8px 18px;
-    cursor: pointer;
-    border-radius: 5px;
-    color: #fff;
-    transition: 0.3s;
-}
-
-header .btn-login:hover {
-    background-color: #33e08a;
-}
-
 header .user-balance {
     font-size: 1.1rem;
     font-weight: bold;
@@ -67,6 +54,20 @@ header .user-balance {
     padding: 5px 15px;
     border: 1px solid #ffd700;
     border-radius: 20px;
+}
+
+header .btn-login {
+    background-color: #00cc66;
+    border: none;
+    padding: 8px 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff; 
+    transition: 0.3s;
+}
+
+header .btn-login:hover {
+    background-color: #33e08a;
 }
 
 .main-container {
