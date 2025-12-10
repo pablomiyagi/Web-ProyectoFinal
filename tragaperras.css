@@ -271,3 +271,11 @@ header .btn-login:hover {
     0% { box-shadow: 0 0 20px rgba(255,215,0,0.4); }
     100% { box-shadow: 0 0 40px rgba(255,215,0,0.9); }
 }
+
+footer {
+    text-align: center;
+    padding: 20px;
+    opacity: 0.6;
+    font-size: 14px;
+    background-color: #1a1c2b; 
+}

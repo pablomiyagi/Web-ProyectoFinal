@@ -332,3 +332,11 @@ header .btn-login:hover {
     margin-bottom: 20px;
     text-shadow: 0 0 10px rgba(0,204,102,0.3);
 }
+
+footer {
+    text-align: center;
+    padding: 20px;
+    opacity: 0.6;
+    font-size: 14px;
+    background-color: #1a1c2b; 
+}

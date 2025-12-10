@@ -301,11 +301,9 @@ header .btn-login:hover {
 }
 
 footer {
-    padding: 20px;
     text-align: center;
-    background-color: #1a1c2b;
-    margin-top: auto; 
-    font-size: 0.9rem;
-    color: #aaa;
-    flex-shrink: 0; 
+    padding: 20px;
+    opacity: 0.6;
+    font-size: 14px;
+    background-color: #1a1c2b; 
 }
