@@ -1,5 +1,5 @@
 // ===============================================
-// 1. DATA DE PARTIDOS (Basada en las imágenes)
+// 1. DATA DE PARTIDOS
 // ===============================================
 
 const matchData = {
@@ -25,74 +25,51 @@ const matchData = {
     ]
 };
 
-// Variable para almacenar las apuestas activas
+// Variable para apuestas PENDIENTES (seleccionadas pero no pagadas)
 let activeBets = [];
+
+// Variable para apuestas CONFIRMADAS (Historial temporal)
+// Al recargar la página, esta variable se vacía automáticamente
+let historialSesion = []; 
 
 // ===============================================
 // 2. FUNCIONES DE RENDERIZADO
 // ===============================================
 
-/**
- * Genera el HTML para la barra de probabilidades.
- * @param {object} probs - Objeto con probabilidades (local, draw, visitor).
- * @param {boolean} isThreeWay - Indica si es un evento con empate (fútbol) o no (NFL/Tenis).
- * @returns {string} HTML de la barra.
- */
 function createOddsBarHTML(probs, isThreeWay) {
     let html = '';
-
-    // Si es ThreeWay (Fútbol)
     if (isThreeWay) {
         html += `<div class="odd-segment local" style="width: ${probs.local}%;">Local ${probs.local}%</div>`;
         html += `<div class="odd-segment draw" style="width: ${probs.draw}%;">Empate ${probs.draw}%</div>`;
         html += `<div class="odd-segment visitor" style="width: ${probs.visitor}%;">Visitante ${probs.visitor}%</div>`;
     } else {
-        // TwoWay (NFL/Tenis) - solo Local y Visitante
         html += `<div class="odd-segment local" style="width: ${probs.local}%;">Local ${probs.local}%</div>`;
         html += `<div class="odd-segment visitor" style="width: ${probs.visitor}%;">Visitante ${probs.visitor}%</div>`;
     }
     return html;
 }
 
-/**
- * Genera el HTML de los botones de apuesta.
- * @param {object} match - Objeto de partido.
- * @param {boolean} isThreeWay - Si incluye botón de empate.
- * @returns {string} HTML de los botones.
- */
 function createBetActionsHTML(match, isThreeWay) {
     let html = '';
-
-    // Botón Local
     html += `<button class="btn-bet" data-match-id="${match.id}" data-type="local" data-odd="${match.odds.local}">Apostar a ${match.home}</button>`;
-
-    // Botón Empate (solo si existe)
     if (isThreeWay) {
         html += `<button class="btn-bet" data-match-id="${match.id}" data-type="draw" data-odd="${match.odds.draw}">Apostar a Empate</button>`;
     }
-
-    // Botón Visitante
     html += `<button class="btn-bet" data-match-id="${match.id}" data-type="visitor" data-odd="${match.odds.visitor}">Apostar a ${match.away}</button>`;
-
     return `<div class="bet-actions">${html}</div>`;
 }
 
-/**
- * Renderiza todos los partidos de una liga en su contenedor.
- * @param {string} leagueId - ID de la liga a renderizar (ej. 'laliga').
- */
 function renderMatches(leagueId) {
     const container = document.getElementById(leagueId);
     const leagueMatches = matchData[leagueId];
     if (!container || !leagueMatches) return;
 
     container.innerHTML = '';
-    const isThreeWay = leagueId === 'laliga' || leagueId === 'premier'; // Solo fútbol tiene empate
+    const isThreeWay = leagueId === 'laliga' || leagueId === 'premier';
 
     leagueMatches.forEach(match => {
         const matchCard = document.createElement('div');
         matchCard.className = 'match-card';
-        
         matchCard.innerHTML = `
             <h3 class="match-title">${match.teams}</h3>
             <div class="match-odds-bar">
@@ -113,14 +90,9 @@ function handleTabClick(event) {
     if (!clickedTab.classList.contains('tab-button')) return;
 
     const leagueId = clickedTab.dataset.league;
-
-    // 1. Manejar clases activas de pestañas
-    document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('active-tab-button');
-    });
+    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active-tab-button'));
     clickedTab.classList.add('active-tab-button');
 
-    // 2. Ocultar todos los contenedores y mostrar el correcto
     document.querySelectorAll('.league-container').forEach(container => {
         container.classList.remove('active');
         container.style.display = 'none';
@@ -128,10 +100,8 @@ function handleTabClick(event) {
 
     const activeContainer = document.getElementById(leagueId);
     if (activeContainer) {
-        activeContainer.style.display = 'block'; // Mostrar el contenedor
+        activeContainer.style.display = 'block';
         activeContainer.classList.add('active');
-        
-        // 3. Renderizar los partidos (si no se han renderizado antes)
         if (activeContainer.children.length === 0) {
             renderMatches(leagueId);
         }
@@ -153,53 +123,107 @@ function updateBetPanel() {
     listContainer.innerHTML = '';
 
     if (activeBets.length === 0) {
-        listContainer.innerHTML = '<p class="placeholder-msg">Haz clic en \'Apostar a...\'' + ' para empezar.</p>';
+        listContainer.innerHTML = '<p class="placeholder-msg">Selecciona una cuota para apostar.</p>';
         totalInfo.classList.add('hidden');
-        return;
-    }
+    } else {
+        let totalApuestas = 0;
+        let totalMonto = 0;
+        let totalGananciaPotencial = 1.0;
 
-    let totalApuestas = 0;
-    let totalMonto = 0;
-    let totalGananciaPotencial = 1.0; // Para el cálculo de la parlay (combinada)
+        activeBets.forEach((bet, index) => {
+            const betItem = document.createElement('div');
+            betItem.className = 'bet-item';
+            betItem.dataset.id = bet.id;
+            
+            let selectionName = bet.type === 'local' ? bet.home : bet.type === 'visitor' ? bet.away : 'Empate';
 
-    activeBets.forEach((bet, index) => {
-        const betItem = document.createElement('div');
-        betItem.className = 'bet-item';
-        betItem.dataset.id = bet.id;
-        
-        // Determinar el nombre de la selección
-        let selectionName = bet.type === 'local' ? bet.home : bet.type === 'visitor' ? bet.away : 'Empate';
-
-        betItem.innerHTML = `
+            betItem.innerHTML = `
             <div>
                 <strong>${bet.teams}</strong>
                 <p>Selección: ${selectionName} (Cuota: ${bet.odd.toFixed(2)})</p>
                 <p>Monto: <input type="number" min="0.01" value="${bet.amount.toFixed(2)}" data-index="${index}" class="bet-amount-input" />€</p>
             </div>
             <button class="remove-btn" data-index="${index}">&times;</button>
-        `;
-        listContainer.appendChild(betItem);
+            `;
+            listContainer.appendChild(betItem);
 
-        totalApuestas++;
-        totalMonto += bet.amount;
-        totalGananciaPotencial *= bet.odd; // Multiplicar cuotas para la combinada
-    });
+            totalApuestas++;
+            totalMonto += bet.amount;
+            totalGananciaPotencial *= bet.odd;
+        });
 
-    // Actualizar Totales
-    totalInfo.classList.remove('hidden');
-    totalCount.textContent = totalApuestas;
-    totalAmount.textContent = totalMonto.toFixed(2);
-    // Ganancia Potencial (Monto total x Cuota combinada)
-    totalPayout.textContent = (totalMonto * totalGananciaPotencial).toFixed(2);
+        totalInfo.classList.remove('hidden');
+        totalCount.textContent = totalApuestas;
+        totalAmount.textContent = totalMonto.toFixed(2);
+        totalPayout.textContent = (totalMonto * totalGananciaPotencial).toFixed(2);
 
-    // Habilitar botón si hay saldo y apuestas
-    const currentBalance = parseFloat(document.getElementById('balance').textContent);
-    btnPlaceAll.disabled = totalMonto > currentBalance || totalMonto === 0;
+        const balanceSpan = document.getElementById('balance');
+        const currentBalance = balanceSpan ? parseFloat(balanceSpan.textContent) : 10000;
+        btnPlaceAll.disabled = totalMonto > currentBalance || totalMonto === 0;
+    }
 }
 
+// --- NUEVA LÓGICA: GESTIÓN DE HISTORIAL TEMPORAL ---
+
 /**
- * Añade una apuesta al talón (o la actualiza si ya existe).
+ * Renderiza las apuestas confirmadas leyendo desde la variable 'historialSesion'
  */
+function renderConfirmedHistory() {
+    // Buscamos el contenedor, si no existe lo creamos dinámicamente
+    let historyContainer = document.getElementById('historial-apuestas-container');
+    const btnPlaceAll = document.getElementById('btn-place-all');
+
+    if (!historyContainer) {
+        // Crear contenedor visual para el historial
+        historyContainer = document.createElement('div');
+        historyContainer.id = 'historial-apuestas-container';
+        historyContainer.style.marginTop = '20px';
+        historyContainer.style.borderTop = '1px solid #444';
+        historyContainer.style.paddingTop = '10px';
+        
+        // Insertarlo DESPUÉS del botón de confirmar
+        if (btnPlaceAll && btnPlaceAll.parentNode) {
+            btnPlaceAll.parentNode.insertAdjacentElement('afterend', historyContainer);
+        } else {
+            // Fallback por si la estructura cambia
+            document.querySelector('.talon-card').appendChild(historyContainer);
+        }
+    }
+
+    historyContainer.innerHTML = ''; // Limpiar siempre antes de pintar
+
+    if (historialSesion.length === 0) {
+        // Si no hay historial en esta sesión, no mostramos nada o mostramos un mensaje vacío
+        return; 
+    }
+
+    historyContainer.innerHTML = '<h4 style="color:#00ff88; margin-bottom:10px;">📋 Apuestas Realizadas (Sesión)</h4>';
+
+    // Invertir para ver la más reciente primero y dibujar
+    [...historialSesion].reverse().forEach(bet => {
+        const item = document.createElement('div');
+        item.style.cssText = 'background: #222; padding: 8px; margin-bottom: 5px; border-radius: 4px; font-size: 0.8rem; border-left: 3px solid #00ff88;';
+        
+        let selectionName = bet.type === 'local' ? bet.home : bet.type === 'visitor' ? bet.away : 'Empate';
+        
+        item.innerHTML = `
+            <div style="display:flex; justify-content:space-between;">
+                <strong>${bet.teams}</strong>
+                <span>${bet.amount.toFixed(2)}€</span>
+            </div>
+            <div style="color: #aaa; margin-top:2px;">
+                ${selectionName} @ ${bet.odd.toFixed(2)}
+            </div>
+            <div style="text-align:right; color:#00ff88; font-weight:bold;">
+                Potencial: ${(bet.amount * bet.odd).toFixed(2)}€
+            </div>
+        `;
+        historyContainer.appendChild(item);
+    });
+}
+
+// ------------------------------------------
+
 function handleBetClick(event) {
     const button = event.target;
     if (!button.classList.contains('btn-bet')) return;
@@ -208,71 +232,46 @@ function handleBetClick(event) {
     const betType = button.dataset.type;
     const odd = parseFloat(button.dataset.odd);
 
-    // Encontrar el partido completo
     const allMatches = Object.values(matchData).flat();
     const match = allMatches.find(m => m.id === matchId);
 
     if (!match) return;
 
-    // Verificar si ya existe una apuesta para este partido
     const existingBetIndex = activeBets.findIndex(bet => bet.matchId === matchId);
 
     if (existingBetIndex !== -1) {
-        // Ya existe una apuesta para este partido: solo actualizar la selección y cuota
         const existingBet = activeBets[existingBetIndex];
+        if (existingBet.type === betType) return;
 
-        if (existingBet.type === betType) {
-            // Si hacen clic en la misma selección, no hacemos nada (o podríamos eliminarla, pero actualizar es más simple)
-            return;
-        }
-
-        // Actualizar la apuesta existente con la nueva selección
         existingBet.type = betType;
         existingBet.odd = odd;
-        
-        // Mostrar advertencia (simulación de límite de apuesta)
-        document.getElementById('limit-warning').style.display = 'block';
-        setTimeout(() => {
-             document.getElementById('limit-warning').style.display = 'none';
-        }, 3000);
-
     } else {
-        // No existe: añadir nueva apuesta
         activeBets.push({
-            id: Date.now(), // ID único para la apuesta
+            id: Date.now(),
             matchId: matchId,
             teams: match.teams,
             home: match.home,
             away: match.away,
-            type: betType, // 'local', 'draw', 'visitor'
+            type: betType,
             odd: odd,
-            amount: 10.00 // Monto por defecto
+            amount: 10.00
         });
     }
 
     updateBetPanel();
 }
 
-/**
- * Maneja la eliminación de una apuesta del panel.
- */
 function handleRemoveBet(event) {
     const button = event.target;
     if (!button.classList.contains('remove-btn')) return;
-
     const indexToRemove = parseInt(button.dataset.index);
     activeBets.splice(indexToRemove, 1);
-
     updateBetPanel();
 }
 
-/**
- * Maneja la edición del monto de apuesta en el panel.
- */
 function handleAmountChange(event) {
     const input = event.target;
     if (!input.classList.contains('bet-amount-input')) return;
-
     const index = parseInt(input.dataset.index);
     let newAmount = parseFloat(input.value);
 
@@ -280,40 +279,65 @@ function handleAmountChange(event) {
         newAmount = 0.01;
         input.value = newAmount.toFixed(2);
     }
-
     activeBets[index].amount = newAmount;
     updateBetPanel();
 }
-
 
 // ===============================================
 // 5. INICIALIZACIÓN DE EVENTOS
 // ===============================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Inicializar la primera pestaña (LaLiga)
+    // 1. Inicializar partidos
     renderMatches('laliga');
 
-    // 2. Agregar listeners a las pestañas
+    // 2. Event Listeners
     document.querySelector('.tabs').addEventListener('click', handleTabClick);
+    document.querySelector('.apuestas-content').addEventListener('click', handleBetClick); 
+    
+    const apuestasList = document.getElementById('apuestas-list');
+    if(apuestasList){
+        apuestasList.addEventListener('click', handleRemoveBet);
+        apuestasList.addEventListener('input', handleAmountChange);
+    }
 
-    // 3. Agregar listeners a los botones de apuesta (delegación de eventos en main-layout)
-    document.querySelector('.apuestas-content').addEventListener('click', handleBetClick);
+    // 3. NO CARGAMOS HISTORIAL AL INICIO (Para que empiece vacío al refrescar)
 
-    // 4. Agregar listeners al panel de apuestas
-    document.getElementById('apuestas-list').addEventListener('click', handleRemoveBet);
-    document.getElementById('apuestas-list').addEventListener('input', handleAmountChange);
+    // 4. BOTÓN CONFIRMAR (MODIFICADO SIN LOCALSTORAGE)
+    const btnPlaceAll = document.getElementById('btn-place-all');
+    if (btnPlaceAll) {
+        btnPlaceAll.addEventListener('click', () => {
+            if (activeBets.length === 0) return;
 
-    // 5. Listener para el botón de confirmar (Simulación)
-    document.getElementById('btn-place-all').addEventListener('click', () => {
-        const totalAmount = activeBets.reduce((sum, bet) => sum + bet.amount, 0);
-        alert(`¡Apuestas confirmadas! Se han apostado ${totalAmount.toFixed(2)}€.`);
-        activeBets = []; // Limpiar apuestas
-        updateBetPanel();
-        
-        // Simular deducción de saldo
-        const balanceSpan = document.getElementById('balance');
-        let currentBalance = parseFloat(balanceSpan.textContent);
-        balanceSpan.textContent = (currentBalance - totalAmount).toFixed(2);
-    });
+            const totalAmount = activeBets.reduce((sum, bet) => sum + bet.amount, 0);
+            
+            // Simular deducción de saldo
+            const balanceSpan = document.getElementById('balance');
+            let currentBalance = parseFloat(balanceSpan.textContent);
+            
+            if (currentBalance < totalAmount) {
+                alert("Saldo insuficiente");
+                return;
+            }
+
+            // --- AQUÍ OCURRE EL CAMBIO ---
+            // En lugar de guardar en Storage, guardamos en el array temporal 'historialSesion'
+            const betsToMove = activeBets.map(bet => ({...bet}));
+            
+            // Añadir al historial temporal
+            historialSesion = [...historialSesion, ...betsToMove];
+            
+            // Actualizar Saldo
+            balanceSpan.textContent = (currentBalance - totalAmount).toFixed(2);
+            
+            alert(`¡Apuestas confirmadas!`);
+            
+            // Limpiar apuestas pendientes
+            activeBets = []; 
+            updateBetPanel(); // Esto limpia la parte de arriba
+            
+            // Pintar el historial abajo
+            renderConfirmedHistory(); 
+        });
+    }
 });
