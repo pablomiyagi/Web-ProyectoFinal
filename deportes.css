@@ -18,8 +18,7 @@
     --color-primary-green: #00cc66; /* Verde principal para destacar/éxito */
     --color-secondary-gold: #ffd700; /* Dorado para saldos/énfasis */
     --color-text-light: #fff;
-    --color-text-muted: #aaa;
-     
+    --color-text-muted: #aaa;  
     /* Colores de Apuestas/Barras de Probabilidad */
     --color-segment-local: #00cc66; /* Verde (Victoria Local) */
     --color-segment-draw: #ffaa33; /* Naranja (Empate) */
@@ -51,7 +50,6 @@ header {
     align-items: center;
     padding: 25px 80px;
     background-color: var(--color-bg-header-panel);
-    position: sticky; /* Fijo al hacer scroll */
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid #333;
