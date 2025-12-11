@@ -244,82 +244,95 @@ footer {
 }
 
 /* =========================================
-MEDIA QUERIES (RESPONSIVE)
+   MEDIA QUERIES (RESPONSIVE)
    ========================================= */
 
-/* Tablets y portátiles pequeños (menos de 1024px) */
+/* Tablets (max-width 1024px) */
 @media (max-width: 1024px) {
     header {
-        padding: 20px 40px; /* Menos espacio lateral */
-    }
-
-    header nav ul {
-        gap: 15px; /* Menos espacio entre enlaces */
-    }
-
-    .container {
-        grid-template-columns: repeat(2, 1fr); /* Pasa a 2 columnas */
-        padding: 20px;
+        padding: 20px 40px;
     }
 }
 
-/* Móviles (menos de 768px) */
+/* Móviles (max-width: 768px) */
 @media (max-width: 768px) {
+    /* --- HEADER STACK --- */
     header {
-        flex-direction: column; /* Elementos uno debajo del otro */
+        flex-direction: column;
         padding: 15px;
         gap: 15px;
     }
 
     header nav ul {
-        flex-direction: column; /* Menú vertical */
+        flex-direction: column;
         align-items: center;
+        gap: 10px;
         width: 100%;
         padding: 0;
     }
     
-    header nav ul li {
-        width: 100%;
-        text-align: center;
-        padding: 5px 0;
-    }
-
-    /* Ajuste de botones en móvil */
     .btn-add-balance {
         margin: 10px 0;
         width: 100%;
         max-width: 300px;
     }
-    
+
     header .user-balance {
         margin-bottom: 10px;
     }
 
-    /* Grid de tarjetas a 1 columna */
-    .container {
-        grid-template-columns: 1fr;
+    /* --- SLOT MACHINE --- */
+    .slot-wrapper {
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+
+    /* Ocultar palanca en móvil porque rompe el ancho */
+    .lever {
+        display: none; 
+    }
+
+    .slot-machine {
         padding: 15px;
-    }
-    
-    .card img {
-        height: 180px;
+        width: 100%;
     }
 
-    /* Texto Hero más pequeño */
-    .hero h1 {
-        font-size: 26px;
+    .reels {
+        gap: 10px; /* Menos espacio entre rodillos */
+        margin: 20px 0;
     }
 
-    /* Contacto ajuste */
-    .contact-section {
-        margin: 30px 15px; /* Margen lateral en móviles */
-        padding: 20px;
+    .reel {
+        width: 80px;  /* Rodillos más pequeños */
+        height: 80px;
+        font-size: 40px; /* Emojis más pequeños */
+        border-width: 3px;
+        border-radius: 10px;
     }
-    
-    .contact-info p {
-        flex-direction: column; /* Texto contacto vertical */
-        align-items: flex-start;
+
+    .slot-title {
+        font-size: 24px;
+    }
+
+    .btn-spin {
+        padding: 12px 20px;
+        font-size: 18px;
+    }
+
+    .jackpot-text {
+        font-size: 40px; /* Jackpot texto más pequeño */
+    }
+}
+
+/* Móviles Muy Pequeños (max-width: 400px) */
+@media (max-width: 400px) {
+    .reels {
         gap: 5px;
-        margin-bottom: 15px;
+    }
+    
+    .reel {
+        width: 65px;
+        height: 65px;
+        font-size: 32px;
     }
 }
