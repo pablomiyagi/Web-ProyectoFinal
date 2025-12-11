@@ -1,3 +1,7 @@
+/* =========================================
+   ESTILOS BASE (ESCRITORIO)
+   ========================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,12 +13,14 @@ body {
     background-color: #0f1220;
     color: #fff;
     line-height: 1.5;
+    overflow-x: hidden; /* Evita scroll horizontal */
 }
 
-.sitio{
+.sitio {
     color: #00cc66;
 }
 
+/* --- HEADER --- */
 header {
     display: flex;
     justify-content: space-between;
@@ -29,30 +35,6 @@ header .logo {
     font-size: 1.8rem;
     font-weight: bold;
     color: #00cc66;
-}
-
-.btn-add-balance {
-    background-color: #ffd700; /* Dorado/Amarillo, para destacarse */
-    color: #0f1220; /* Color de texto oscuro */
-    border: none;
-    padding: 10px 20px;
-    margin: 0 30px; /* Margen para separarlo de 'Contacto' y del 'Saldo' */
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
-}
-
-.btn-add-balance:hover {
-    background-color: #ffe873; /* Un color un poco más claro al pasar el ratón */
-    transform: translateY(-1px);
-}
-
-.btn-add-balance:active {
-    transform: translateY(0);
-    box-shadow: none;
 }
 
 header nav ul {
@@ -94,11 +76,36 @@ header .btn-login:hover {
     background-color: #33e08a;
 }
 
-/* SLOT WRAPPER */
+.btn-add-balance {
+    background-color: #ffd700; 
+    color: #0f1220;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 30px; 
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+}
+
+.btn-add-balance:hover {
+    background-color: #ffe873; 
+    transform: translateY(-1px);
+}
+
+.btn-add-balance:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* --- SLOT WRAPPER --- */
 .slot-wrapper {
     max-width: 680px;
     margin: 80px auto;
     text-align: center;
+    padding: 0 20px; /* Margen de seguridad lateral */
 }
 
 .slot-title {
@@ -108,7 +115,7 @@ header .btn-login:hover {
     text-shadow: 0 0 12px #00ff99;
 }
 
-/* MARCO PROFESIONAL */
+/* --- SLOT MACHINE FRAME --- */
 .slot-machine {
     background: #1a1d2f;
     padding: 25px;
@@ -116,9 +123,9 @@ header .btn-login:hover {
     position: relative;
     border: 6px solid #24283d;
     box-shadow: 0 0 40px rgba(0, 255, 160, 0.3), inset 0 0 25px rgba(0, 255, 160, 0.15);
+    margin: 0 auto; /* Centrar */
 }
 
-/* Borde luminoso */
 .slot-machine::before {
     content: "";
     position: absolute;
@@ -129,10 +136,11 @@ header .btn-login:hover {
     z-index: -1;
 }
 
-/* REELS */
+/* --- REELS --- */
 .reels {
     display: flex;
-    justify-content: space-around;
+    justify-content: center; /* Centrar los rodillos */
+    gap: 20px; /* Espacio entre rodillos */
     margin: 30px 0;
 }
 
@@ -150,6 +158,7 @@ header .btn-login:hover {
     overflow: hidden;
     box-shadow: inset 0 0 20px rgba(0,255,150,0.2);
     transition: transform 0.15s;
+    flex-shrink: 0; /* Evita que se aplasten */
 }
 
 .spin-anim {
@@ -161,7 +170,7 @@ header .btn-login:hover {
     100% { filter: blur(3px); }
 }
 
-/* BOTÓN */
+/* --- BOTÓN SPIN --- */
 .btn-spin {
     background: linear-gradient(180deg, #00e28a, #00b76d);
     color: #fff;
@@ -172,6 +181,8 @@ header .btn-login:hover {
     font-size: 20px;
     box-shadow: 0 0 12px rgba(0,255,150,0.4);
     transition: 0.3s;
+    width: 100%;
+    max-width: 300px;
 }
 
 .btn-spin:hover {
@@ -179,16 +190,17 @@ header .btn-login:hover {
     box-shadow: 0 0 18px rgba(0,255,150,0.6);
 }
 
-/* RESULTADO */
+/* --- RESULTADO --- */
 #result {
     margin-top: 25px;
     font-size: 24px;
     font-weight: bold;
     color: #ffd700;
     text-shadow: 0 0 10px #ffea00;
+    min-height: 36px; /* Evita salto al aparecer texto */
 }
 
-/* EFECTO VIBRACIÓN */
+/* --- EFECTOS VISUALES --- */
 .shake {
     animation: shakeAnim 0.25s ease-in-out infinite;
 }
@@ -201,14 +213,14 @@ header .btn-login:hover {
     100% { transform: translateX(0px); }
 }
 
-/* PALANCA DECORATIVA */
+/* --- PALANCA --- */
 .lever {
     width: 35px;
     height: 140px;
     background: #303444;
     border-radius: 18px;
     position: absolute;
-    right: -60px;
+    right: -55px;
     top: 40px;
     box-shadow: 0 0 15px rgba(0,255,150,0.4);
 }
@@ -233,7 +245,7 @@ header .btn-login:hover {
     100% { transform: rotate(35deg); }
 }
 
-/* ANIMACIÓN JACKPOT */
+/* --- JACKPOT --- */
 .jackpot-overlay {
     position: absolute;
     inset: 0;
@@ -264,7 +276,7 @@ header .btn-login:hover {
     100% { transform: scale(1.2); opacity: 0.4; }
 }
 
-/* PARTÍCULAS */
+/* --- PARTÍCULAS --- */
 .jackpot-particle {
     position: absolute;
     width: 12px;
@@ -286,7 +298,6 @@ header .btn-login:hover {
     }
 }
 
-/* Borde parpadeante */
 .jackpot-border {
     animation: borderFlash 0.25s infinite alternate;
 }
@@ -302,4 +313,99 @@ footer {
     opacity: 0.6;
     font-size: 14px;
     background-color: #1a1c2b; 
+    margin-top: 50px;
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+
+/* Tablets (max-width 1024px) */
+@media (max-width: 1024px) {
+    header {
+        padding: 20px 40px;
+    }
+}
+
+/* Móviles (max-width: 768px) */
+@media (max-width: 768px) {
+    /* --- HEADER STACK --- */
+    header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 0;
+    }
+    
+    .btn-add-balance {
+        margin: 10px 0;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    header .user-balance {
+        margin-bottom: 10px;
+    }
+
+    /* --- SLOT MACHINE --- */
+    .slot-wrapper {
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+
+    /* Ocultar palanca en móvil porque rompe el ancho */
+    .lever {
+        display: none; 
+    }
+
+    .slot-machine {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .reels {
+        gap: 10px; /* Menos espacio entre rodillos */
+        margin: 20px 0;
+    }
+
+    .reel {
+        width: 80px;  /* Rodillos más pequeños */
+        height: 80px;
+        font-size: 40px; /* Emojis más pequeños */
+        border-width: 3px;
+        border-radius: 10px;
+    }
+
+    .slot-title {
+        font-size: 24px;
+    }
+
+    .btn-spin {
+        padding: 12px 20px;
+        font-size: 18px;
+    }
+
+    .jackpot-text {
+        font-size: 40px; /* Jackpot texto más pequeño */
+    }
+}
+
+/* Móviles Muy Pequeños (max-width: 400px) */
+@media (max-width: 400px) {
+    .reels {
+        gap: 5px;
+    }
+    
+    .reel {
+        width: 65px;
+        height: 65px;
+        font-size: 32px;
+    }
 }

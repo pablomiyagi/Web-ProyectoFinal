@@ -1,17 +1,25 @@
+/* =========================================
+   ESTILOS BASE (ESCRITORIO)
+   ========================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
 body {
     background-color: #0f1220;
     color: #fff;
     line-height: 1.5;
 }
-.sitio{
+
+.sitio {
     color: #00cc66;
 }
+
+/* --- HEADER --- */
 header {
     display: flex;
     justify-content: space-between;
@@ -21,24 +29,29 @@ header {
     top: 0;
     z-index: 1000;
 }
+
 header .logo {
     font-size: 1.8rem;
     font-weight: bold;
     color: #00cc66;
 }
+
 header nav ul {
     display: flex;
     list-style: none;
     gap: 25px;
 }
+
 header nav ul li a {
     text-decoration: none;
     color: #fff;
     transition: 0.3s;
 }
+
 header nav ul li a:hover {
     color: #00cc66;
 }
+
 header .user-balance {
     font-size: 1.1rem;
     font-weight: bold;
@@ -47,6 +60,7 @@ header .user-balance {
     border: 1px solid #ffd700;
     border-radius: 20px;
 }
+
 header .btn-login {
     background-color: #00cc66;
     border: none;
@@ -56,10 +70,37 @@ header .btn-login {
     color: #fff;
     transition: 0.3s;
 }
+
 header .btn-login:hover {
     background-color: #33e08a;
 }
-/* CAMBIO CLAVE: Contenedor principal para la disposición lateral */
+
+.btn-add-balance {
+    background-color: #ffd700;
+    color: #0f1220;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 30px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+.btn-add-balance:hover {
+    background-color: #ffe873;
+    transform: translateY(-1px);
+}
+
+.btn-add-balance:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* --- GAME AREA LAYOUT --- */
 .casino-table {
     background-color: #0b3d22;
     min-height: 90vh;
@@ -69,20 +110,32 @@ header .btn-login:hover {
     padding: 30px;
     background-image: radial-gradient(#155b34 10%, #0b3d22 90%);
 }
-/* NUEVA CLASE: Para centrar el tablero y poner las estadísticas a la izquierda */
+
 .roulette-container {
     display: flex;
     align-items: flex-start;
     gap: 30px;
     justify-content: center;
     width: 100%;
+    max-width: 1400px; /* Limite máximo para pantallas muy grandes */
 }
-/* NUEVA CLASE: Para que el título y el marco se centren verticalmente */
+
 .center-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%; /* Asegura que ocupe espacio disponible */
 }
+
+.section-title {
+    font-size: 2.2rem;
+    text-align: center;
+    color: #00cc66;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0,204,102,0.3);
+}
+
+/* --- MESA Y RUEDA --- */
 .table-frame {
     display: flex;
     gap: 30px;
@@ -95,7 +148,9 @@ header .btn-login:hover {
     box-shadow: inset 0 0 50px rgba(0,0,0,0.6), 0 20px 30px rgba(0,0,0,0.5);
     margin-bottom: 20px;
     flex-wrap: nowrap;
+    max-width: 100%; /* Evita desbordamiento */
 }
+
 .wheel-section {
     position: relative;
     width: 350px;
@@ -103,6 +158,7 @@ header .btn-login:hover {
     flex-shrink: 0;
     margin-top: 20px;
 }
+
 #wheelCanvas {
     width: 100%;
     height: 100%;
@@ -110,6 +166,7 @@ header .btn-login:hover {
     border: 8px solid #d4af37;
     transition: transform 4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
+
 .wheel-pointer {
     position: absolute;
     top: -10px;
@@ -123,42 +180,44 @@ header .btn-login:hover {
     z-index: 100;
     filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));
 }
+
+/* --- TABLERO DE APUESTAS --- */
 .board-area {
     display: flex;
     flex-direction: column;
     width: 600px; 
     flex-shrink: 0;
-    /* QUITADO: border: 2px solid #fff; - El borde está en table-frame */
     margin-top: 20px;
 }
+
 .top-zeros {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 70px;
 }
-.zero-double {
-    grid-column: 1 / span 1;
-}
-.zero-single {
-    grid-column: 2 / span 1;
-}
+
+.zero-double { grid-column: 1 / span 1; }
+.zero-single { grid-column: 2 / span 1; }
+
 .main-betting-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr) 0.5fr;
+    grid-template-columns: repeat(3, 1fr) 0.5fr; /* 3 columnas num + docenas */
     grid-template-rows: repeat(12, 1fr);
     gap: 0;
 }
+
 .dozens-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     height: 40px;
 }
-/* Apuestas de abajo, ahora dentro de .board-area */
+
 .line-bets-row {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     height: 40px;
 }
+
 .bet-spot {
     position: relative;
     display: flex;
@@ -171,51 +230,27 @@ header .btn-login:hover {
     background-color: transparent;
     transition: background-color 0.1s;
     z-index: 1;
+    min-height: 35px; /* Altura mínima para tocar con el dedo */
 }
-.bet-spot:hover {
-    background-color: rgba(255,255,255,0.1);
-}
-.bet-spot > * {
-    z-index: 2;
-}
-.bg-red {
-    background-color: #d32f2f;
-}
-.bg-black {
-    background-color: #222;
-}
-.bg-green {
-    background-color: #00cc66;
-}
+
+.bet-spot:hover { background-color: rgba(255,255,255,0.1); }
+.bet-spot > * { z-index: 2; }
+
+.bg-red { background-color: #d32f2f; }
+.bg-black { background-color: #222; }
+.bg-green { background-color: #00cc66; }
+
 .zero-double, .zero-single {
     border: 1px solid #fff;
     font-size: 1.5rem;
     background-color: #00cc66;
     height: 100%;
 }
-.dozen-bet, .line-bet {
-    width: 100%;
-    height: 100%;
-}
-.line-bet.color-red {
-    background-color: #d32f2f;
-}
-.line-bet.color-black {
-    background-color: #222;
-}
-.line-bet.color-red, .line-bet.color-black {
-    font-size: 0;
-    position: relative;
-    overflow: hidden;
-    /* Asegura que el texto se muestre si es necesario */
-    font-size: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.line-bet.color-red::after, .line-bet.color-black::after {
-    content: none !important;
-}
+
+.line-bet.color-red { background-color: #d32f2f; }
+.line-bet.color-black { background-color: #222; }
+
+/* Fichas visuales */
 .chip-stack {
     position: absolute;
     top: 50%;
@@ -228,21 +263,22 @@ header .btn-login:hover {
     font-weight: bold;
     font-size: 0.8rem;
     color: #fff;
-    display: flex;
     justify-content: center;
     align-items: center;
     border: 2px solid white;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
     z-index: 5;
+    pointer-events: none; /* Permite hacer clic a través de la ficha */
 }
-.chip-stack.active {
-    display: flex;
-}
+
+.chip-stack.active { display: flex; }
 .chip-visual-50 { background: radial-gradient(circle, #0099ff 40%, #0066cc 90%); border-color: #fff; }
 .chip-visual-100 { background: radial-gradient(circle, #ffaa00 40%, #cc8800 90%); border-color: #fff; }
 .chip-visual-500 { background: radial-gradient(circle, #aa33ff 40%, #8800cc 90%); border-color: #fff; }
 .chip-visual-1000 { background: radial-gradient(circle, #ff5555 40%, #cc0000 90%); border-color: #fff; }
 .chip-visual-2000 { background: radial-gradient(circle, #00cc66 40%, #009933 90%); border-color: #fff; }
+
+/* --- BARRA DE CONTROLES --- */
 .controls-bar {
     margin-top: 20px;
     display: flex;
@@ -252,17 +288,18 @@ header .btn-login:hover {
     padding: 15px 30px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+    flex-wrap: wrap; /* Permite envolver en móviles */
+    justify-content: center;
 }
+
 .chips-selector {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
-.chips-selector p {
-    font-size: 1rem;
-    color: #ccc;
-    margin-right: 10px;
-}
+
 .chip-btn {
     width: 65px;
     height: 65px;
@@ -276,21 +313,25 @@ header .btn-login:hover {
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
 }
-.chip-50 { background: radial-gradient(circle, #0099ff 40%, #0066cc 90%); border-color: #fff; }
-.chip-100 { background: radial-gradient(circle, #ffaa00 40%, #cc8800 90%); border-color: #fff; }
-.chip-500 { background: radial-gradient(circle, #aa33ff 40%, #8800cc 90%); border-color: #fff; }
-.chip-1k { background: radial-gradient(circle, #ff5555 40%, #cc0000 90%); border-color: #fff; }
-.chip-2k { background: radial-gradient(circle, #00cc66 40%, #009933 90%); border-color: #fff; }
+
 .chip-btn.active {
     transform: scale(1.15) translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 204, 102, 0.4);
     border-color: #ffd700;
 }
+
+.chip-50 { background: radial-gradient(circle, #0099ff 40%, #0066cc 90%); border-color: #fff; }
+.chip-100 { background: radial-gradient(circle, #ffaa00 40%, #cc8800 90%); border-color: #fff; }
+.chip-500 { background: radial-gradient(circle, #aa33ff 40%, #8800cc 90%); border-color: #fff; }
+.chip-1k { background: radial-gradient(circle, #ff5555 40%, #cc0000 90%); border-color: #fff; }
+.chip-2k { background: radial-gradient(circle, #00cc66 40%, #009933 90%); border-color: #fff; }
+
 .action-buttons {
     display: flex;
     gap: 20px;
     align-items: center;
 }
+
 .btn-spin-real {
     background: radial-gradient(#ff5555, #cc0000);
     color: white;
@@ -304,16 +345,7 @@ header .btn-login:hover {
     text-shadow: 0 2px 2px #000;
     cursor: pointer;
 }
-.btn-spin-real:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
-.btn-spin-real:disabled {
-    opacity: 0.5;
-    background: #555;
-    cursor: not-allowed;
-    transform: none;
-}
+
 .btn-clear {
     background-color: #555;
     color: #fff;
@@ -323,17 +355,8 @@ header .btn-login:hover {
     border: 2px solid #777;
     cursor: pointer;
 }
-.message-box {
-    font-size: 1.2rem;
-    color: #fff;
-}
-.section-title {
-    font-size: 2.2rem;
-    text-align: center;
-    color: #00cc66;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(0,204,102,0.3);
-}
+
+/* --- STATS PANEL --- */
 .stats-panel {
     width: 180px;
     background-color: rgba(0,0,0,0.6);
@@ -347,44 +370,14 @@ header .btn-login:hover {
     font-weight: bold;
     flex-shrink: 0;
     height: fit-content;
-    /* Ajuste para alinear con el tablero/rueda */
     margin-top: 55px; 
 }
+
 .stats-panel h3 {
     margin-bottom: 5px;
     font-size: 1rem;
     color: #ffd700;
     text-align: center;
-    text-shadow: 0 0 5px #00cc66;
-}
-.stats-list {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.btn-add-balance {
-    background-color: #ffd700; /* Dorado/Amarillo, para destacarse */
-    color: #0f1220; /* Color de texto oscuro */
-    border: none;
-    padding: 10px 20px;
-    margin: 0 30px; /* Margen para separarlo de 'Contacto' y del 'Saldo' */
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
-}
-
-.btn-add-balance:hover {
-    background-color: #ffe873; /* Un color un poco más claro al pasar el ratón */
-    transform: translateY(-1px);
-}
-
-.btn-add-balance:active {
-    transform: translateY(0);
-    box-shadow: none;
 }
 
 .stats-item {
@@ -396,19 +389,166 @@ header .btn-login:hover {
     font-size: 0.9rem;
     color: #fff;
 }
-.stats-item.red {
-    background-color: #d32f2f;
-}
-.stats-item.black {
-    background-color: #222;
-}
-.stats-item.green {
-    background-color: #00cc66;
-}
+.stats-item.red { background-color: #d32f2f; }
+.stats-item.black { background-color: #222; }
+.stats-item.green { background-color: #00cc66; }
+
 footer {
     text-align: center;
     padding: 20px;
     opacity: 0.6;
     font-size: 14px;
     background-color: #1a1c2b;
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+
+/* Tablets y Laptops Pequeños (max-width 1200px) */
+@media (max-width: 1200px) {
+    .roulette-container {
+        flex-direction: column; /* Apilar Stats sobre la mesa */
+        align-items: center;
+    }
+
+    .stats-panel {
+        width: 100%;
+        max-width: 600px;
+        flex-direction: row; /* Stats en horizontal */
+        justify-content: space-around;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .stats-list {
+        display: flex;
+        gap: 10px;
+    }
+}
+
+/* Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+    header {
+        padding: 20px 40px;
+    }
+
+    .table-frame {
+        flex-direction: column; /* Rueda ARRIBA, Tablero ABAJO */
+        align-items: center;
+        width: 100%;
+    }
+
+    .wheel-section {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .board-area {
+        width: 100%; /* El tablero ocupa el ancho disponible */
+        max-width: 600px;
+    }
+    
+    .controls-bar {
+        gap: 30px;
+    }
+}
+
+/* Móviles (max-width: 768px) */
+@media (max-width: 768px) {
+    /* --- HEADER STACK --- */
+    header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 0;
+    }
+    
+    .btn-add-balance {
+        margin: 10px 0;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    header .user-balance {
+        margin-bottom: 10px;
+    }
+
+    /* --- GAME AREA --- */
+    .casino-table {
+        padding: 10px;
+    }
+    
+    .table-frame {
+        padding: 10px;
+        border-width: 5px;
+        border-radius: 20px;
+    }
+
+    /* Reducir tamaño de la rueda */
+    .wheel-section {
+        width: 280px;
+        height: 280px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    /* --- CONTROLES MÓVIL --- */
+    .controls-bar {
+        flex-direction: column-reverse; /* Botón girar arriba, fichas abajo */
+        gap: 20px;
+        width: 100%;
+        padding: 15px;
+    }
+    
+    .chip-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 0.9rem;
+        border-width: 2px;
+    }
+    
+    .btn-spin-real {
+        width: 80px;
+        height: 80px;
+        font-size: 1.2rem;
+    }
+
+    /* --- ESTADÍSTICAS --- */
+    .stats-panel {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stats-list {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Móviles Muy Pequeños (max-width: 480px) */
+@media (max-width: 480px) {
+    /* Ajustes finos para el tablero */
+    .bet-spot {
+        font-size: 0.9rem; /* Texto números más pequeño */
+    }
+    
+    .top-zeros {
+        height: 50px; /* Ceros más compactos */
+    }
+    
+    .chip-stack {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+    }
 }
