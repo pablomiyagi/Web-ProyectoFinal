@@ -1,3 +1,6 @@
+/* =========================================
+   ESTILOS BASE (Escritorio)
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -11,34 +14,11 @@ body {
     line-height: 1.5;
 }
 
-.sitio{
+.sitio {
     color: #00cc66;
 }
 
-.btn-add-balance {
-    background-color: #ffd700; /* Dorado/Amarillo, para destacarse */
-    color: #0f1220; /* Color de texto oscuro */
-    border: none;
-    padding: 10px 20px;
-    margin: 0 30px; /* Margen para separarlo de 'Contacto' y del 'Saldo' */
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
-}
-
-.btn-add-balance:hover {
-    background-color: #ffe873; /* Un color un poco más claro al pasar el ratón */
-    transform: translateY(-1px);
-}
-
-.btn-add-balance:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-
+/* --- HEADER --- */
 header {
     display: flex;
     justify-content: space-between;
@@ -46,6 +26,7 @@ header {
     padding: 25px 80px;
     background-color: #1a1c2b;
     top: 0;
+    position: sticky; /* Menú fijo */
     z-index: 1000;
 }
 
@@ -78,6 +59,7 @@ header .user-balance {
     padding: 5px 15px;
     border: 1px solid #ffd700;
     border-radius: 20px;
+    white-space: nowrap;
 }
 
 header .btn-login {
@@ -94,6 +76,32 @@ header .btn-login:hover {
     background-color: #33e08a;
 }
 
+.btn-add-balance {
+    background-color: #ffd700;
+    color: #0f1220;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 30px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+    white-space: nowrap;
+}
+
+.btn-add-balance:hover {
+    background-color: #ffe873;
+    transform: translateY(-1px);
+}
+
+.btn-add-balance:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* --- MAIN CONTENT --- */
 .main-content-apuestas {
     flex-grow: 1; 
     padding: 30px;
@@ -113,11 +121,12 @@ header .btn-login:hover {
     text-shadow: 0 0 10px rgba(0,204,102,0.3);
 }
 
+/* --- APUESTAS AREA --- */
 .info-betting-area {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permite que caigan en móviles */
     gap: 30px;
 }
 
@@ -126,6 +135,7 @@ header .btn-login:hover {
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
+    flex: 1; /* Ocupa el espacio disponible */
 }
 
 .stat-card {
@@ -149,6 +159,7 @@ header .btn-login:hover {
     color: #ccc;
 }
 
+/* --- CONTROLES DE APUESTA --- */
 .betting-controls {
     background-color: #1f2235;
     padding: 30px;
@@ -159,6 +170,7 @@ header .btn-login:hover {
     flex-direction: column;
     gap: 20px;
     min-width: 300px;
+    flex: 0 1 350px; /* Flex flexible pero con base de 350px */
 }
 
 .betting-controls h3 {
@@ -230,6 +242,7 @@ header .btn-login:hover {
     min-height: 24px; 
 }
 
+/* --- PISTA DE CARRERAS --- */
 .race-track-container {
     position: relative;
     width: 100%;
@@ -276,9 +289,9 @@ header .btn-login:hover {
 .finish-line {
     right: 20px; 
     background-image: linear-gradient(45deg, #333 25%, transparent 25%), 
-                    linear-gradient(-45deg, #333 25%, transparent 25%),
-                    linear-gradient(45deg, transparent 75%, #333 75%),
-                    linear-gradient(-45deg, transparent 75%, #333 75%);
+                      linear-gradient(-45deg, #333 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, #333 75%),
+                      linear-gradient(-45deg, transparent 75%, #333 75%);
     background-size: 20px 20px;
     background-color: #fff;
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px; 
@@ -330,4 +343,104 @@ footer {
     opacity: 0.6;
     font-size: 14px;
     background-color: #1a1c2b; 
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+
+/* Tablets (max-width 1024px) */
+@media (max-width: 1024px) {
+    header {
+        padding: 20px 40px;
+    }
+
+    .main-content-apuestas {
+        padding: 20px;
+    }
+}
+
+/* Móviles (max-width 768px) */
+@media (max-width: 768px) {
+    /* --- HEADER STACK --- */
+    header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        padding: 0;
+    }
+
+    header nav ul li {
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    .btn-add-balance {
+        margin: 10px 0;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    header .user-balance {
+        margin-bottom: 10px;
+    }
+
+    /* --- CONTENIDO PRINCIPAL --- */
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .stats-cards-container {
+        flex-direction: row;
+        width: 100%;
+    }
+    
+    .stat-card {
+        width: 45%; /* En móvil, las tarjetas de stats ocupan casi la mitad cada una */
+        min-width: 140px;
+        padding: 15px;
+    }
+
+    .betting-controls {
+        width: 100%; /* El panel de control ocupa todo el ancho */
+        min-width: auto;
+        padding: 20px;
+    }
+
+    /* --- AJUSTES PISTA DE CARRERAS (CRÍTICO) --- */
+    .race-track-container {
+        height: 250px; /* Reducimos la altura para que no sea tan alta en móvil */
+        border-width: 5px; /* Borde más fino */
+        margin: 20px auto;
+    }
+
+    .horse {
+        height: 70%; /* Caballo un poco más pequeño */
+        max-width: 60px; /* Limitamos ancho máximo del caballo */
+    }
+
+    .horse-name {
+        left: 65px; /* Ajustamos la etiqueta del nombre */
+        font-size: 0.7rem; /* Texto más pequeño */
+        padding: 2px 5px;
+    }
+
+    .lane {
+        /* La altura es relativa (25%), así que se ajusta sola */
+    }
+
+    .start-line { left: 10px; }
+    .finish-line { right: 10px; }
+    
+    .race-result {
+        font-size: 1.8rem; /* Resultado más pequeño */
+    }
 }

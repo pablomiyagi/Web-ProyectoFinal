@@ -1,3 +1,6 @@
+/* =========================================
+   ESTILOS ORIGINALES (BASE)
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -11,16 +14,16 @@ body {
     line-height: 1.5;
 }
 
-.sitio{
+.sitio {
     color: #00cc66;
 }
 
 .btn-add-balance {
-    background-color: #ffd700; /* Dorado/Amarillo, para destacarse */
-    color: #0f1220; /* Color de texto oscuro */
+    background-color: #ffd700;
+    color: #0f1220;
     border: none;
     padding: 10px 20px;
-    margin: 0 30px; /* Margen para separarlo de 'Contacto' y del 'Saldo' */
+    margin: 0 30px;
     cursor: pointer;
     border-radius: 8px;
     font-weight: bold;
@@ -30,7 +33,7 @@ body {
 }
 
 .btn-add-balance:hover {
-    background-color: #ffe873; /* Un color un poco más claro al pasar el ratón */
+    background-color: #ffe873;
     transform: translateY(-1px);
 }
 
@@ -43,7 +46,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 80px;
+    padding: 25px 80px; /* Se ajustará en móviles abajo */
     background-color: #1a1c2b;
     top: 0;
     z-index: 1000;
@@ -78,6 +81,7 @@ header .user-balance {
     padding: 5px 15px;
     border: 1px solid #ffd700;
     border-radius: 20px;
+    white-space: nowrap; /* Evita que el saldo se parta en dos líneas */
 }
 
 header .btn-login {
@@ -126,7 +130,7 @@ header .btn-login:hover {
 
 .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Por defecto 3 columnas */
     gap: 20px;
     padding: 30px;
     max-width: 1200px;
@@ -175,4 +179,59 @@ footer {
     opacity: 0.6;
     font-size: 14px;
     background-color: #1a1c2b; 
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+
+/* Para Tablets y portátiles pequeños (menos de 1024px) */
+@media (max-width: 1024px) {
+    header {
+        padding: 20px 40px; /* Reducimos el padding del header */
+    }
+
+    .container {
+        grid-template-columns: repeat(2, 1fr); /* Pasamos a 2 columnas */
+    }
+    
+    .btn-add-balance {
+        margin: 0 15px; /* Reducimos margen del botón */
+    }
+}
+
+/* Para Móviles (menos de 768px) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Ponemos los elementos uno debajo de otro */
+        padding: 20px;
+        gap: 15px; /* Espacio entre logo, menú y botones */
+    }
+
+    header nav ul {
+        flex-direction: column; /* Menú en vertical */
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    /* Agrupamos botones para que se vean bien en móvil */
+    .btn-add-balance {
+        margin: 10px 0;
+        width: 100%; /* Botón ancho completo */
+        max-width: 300px;
+    }
+
+    header .user-balance {
+        margin-bottom: 10px;
+    }
+
+    .container {
+        grid-template-columns: 1fr; /* Una sola columna para las tarjetas */
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 26px; /* Texto un poco más pequeño */
+    }
 }

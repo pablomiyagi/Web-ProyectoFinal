@@ -1,3 +1,6 @@
+/* =========================================
+   ESTILOS BASE (Escritorio)
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -11,10 +14,11 @@ body {
     line-height: 1.5;
 }
 
-.sitio{
+.sitio {
     color: #00cc66;
 }
 
+/* --- HEADER --- */
 header {
     display: flex;
     justify-content: space-between;
@@ -22,6 +26,7 @@ header {
     padding: 25px 80px;
     background-color: #1a1c2b;
     top: 0;
+    position: sticky; /* Añadido para que el menú acompañe al bajar */
     z-index: 1000;
 }
 
@@ -68,8 +73,35 @@ header .user-balance {
     padding: 5px 15px;
     border: 1px solid #ffd700;
     border-radius: 20px;
+    white-space: nowrap; /* Evita que se rompa en dos líneas */
 }
 
+.btn-add-balance {
+    background-color: #ffd700;
+    color: #0f1220;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+    white-space: nowrap;
+}
+
+.btn-add-balance:hover {
+    background-color: #ffe873;
+    transform: translateY(-1px);
+}
+
+.btn-add-balance:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* --- HERO SECTION --- */
 .hero {
     text-align: center;
     background: #00cc66; 
@@ -99,11 +131,14 @@ header .user-balance {
     transition: 0.3s;
 }
 
+/* --- CARDS GRID --- */
 .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas por defecto */
     gap: 20px;
     padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .card {
@@ -123,7 +158,7 @@ header .user-balance {
 
 .card img {
     width: 100%;
-    height: 50%;
+    height: 200px; /* Altura fija para uniformidad */
     object-fit: cover;
     transition: transform 0.3s ease;
 }
@@ -142,6 +177,7 @@ header .user-balance {
     opacity: 0.8;
 }
 
+/* --- CONTACT SECTION --- */
 .contact-section {
     max-width: 600px;
     margin: 60px auto;
@@ -161,29 +197,6 @@ header .user-balance {
     border-bottom: 3px solid #00cc66;
     display: inline-block;
 }
-.btn-add-balance {
-    background-color: #ffd700; /* Dorado/Amarillo, para destacarse */
-    color: #0f1220; /* Color de texto oscuro */
-    border: none;
-    padding: 10px 20px;
-    margin: 0 30px; /* Margen para separarlo de 'Contacto' y del 'Saldo' */
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
-}
-
-.btn-add-balance:hover {
-    background-color: #ffe873; /* Un color un poco más claro al pasar el ratón */
-    transform: translateY(-1px);
-}
-
-.btn-add-balance:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
 
 .contact-info {
     font-size: 1rem;
@@ -196,6 +209,7 @@ header .user-balance {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-wrap: wrap; /* Permite que el texto baje si no cabe */
 }
 
 .contact-info p strong {
@@ -227,4 +241,85 @@ footer {
     opacity: 0.6;
     font-size: 14px;
     background-color: #1a1c2b; 
+}
+
+/* =========================================
+MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+
+/* Tablets y portátiles pequeños (menos de 1024px) */
+@media (max-width: 1024px) {
+    header {
+        padding: 20px 40px; /* Menos espacio lateral */
+    }
+
+    header nav ul {
+        gap: 15px; /* Menos espacio entre enlaces */
+    }
+
+    .container {
+        grid-template-columns: repeat(2, 1fr); /* Pasa a 2 columnas */
+        padding: 20px;
+    }
+}
+
+/* Móviles (menos de 768px) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Elementos uno debajo del otro */
+        padding: 15px;
+        gap: 15px;
+    }
+
+    header nav ul {
+        flex-direction: column; /* Menú vertical */
+        align-items: center;
+        width: 100%;
+        padding: 0;
+    }
+    
+    header nav ul li {
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    /* Ajuste de botones en móvil */
+    .btn-add-balance {
+        margin: 10px 0;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    header .user-balance {
+        margin-bottom: 10px;
+    }
+
+    /* Grid de tarjetas a 1 columna */
+    .container {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+    
+    .card img {
+        height: 180px;
+    }
+
+    /* Texto Hero más pequeño */
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    /* Contacto ajuste */
+    .contact-section {
+        margin: 30px 15px; /* Margen lateral en móviles */
+        padding: 20px;
+    }
+    
+    .contact-info p {
+        flex-direction: column; /* Texto contacto vertical */
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 15px;
+    }
 }
