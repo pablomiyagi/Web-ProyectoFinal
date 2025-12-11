@@ -352,20 +352,25 @@ footer {
 /* Tablets (max-width 1024px) */
 @media (max-width: 1024px) {
     header {
-        padding: 20px 40px;
+        padding: 20px 40px; /* Reducimos el padding del header */
     }
 
-    .main-content-apuestas {
-        padding: 20px;
+    .container {
+        grid-template-columns: repeat(2, 1fr); /* Pasamos a 2 columnas */
+    }
+    
+    .btn-add-balance {
+        margin: 0 15px; /* Reducimos margen del botón */
     }
 }
+
 
 /* Móviles (max-width 768px) */
 @media (max-width: 768px) {
     /* --- HEADER STACK --- */
     header {
         flex-direction: column;
-        padding: 15px;
+        padding: 20px;
         gap: 15px;
     }
 
