@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VictoryZone - Partidos</title>
     <link rel="stylesheet" href="deportes.css"> 
-    <link rel="stylesheet" href="media.css">
 </head>
 <body>
     <header>
@@ -38,12 +37,14 @@
                 <button class="tab-button" data-league="premier">Premier League</button>
                 <button class="tab-button" data-league="nfl">NFL</button>
                 <button class="tab-button" data-league="tenis">Wimbledon</button>
+                <button class="tab-button" data-league="basketball">NBA</button>
             </div>
 
             <div id="laliga" class="league-container active"></div>
             <div id="premier" class="league-container"></div>
             <div id="nfl" class="league-container"></div>
             <div id="tenis" class="league-container"></div>
+            <div id="basketball" class="league-container"></div>
 
             <div id="limit-warning" class="limit-warning" style="display:none;">
                 Ya tienes una apuesta activa en este partido. Elimínala o edítala para cambiar tu selección.
@@ -51,7 +52,7 @@
 
         </section>
 
-        <aside id="apuestas-panel" class="apuestas-panel">
+        <aside id="apuestas-panel" class="apuestas-panel talon-card">
             <h3>Talón de Apuestas</h3>
 
             <div id="apuestas-list">
@@ -73,8 +74,8 @@
     </footer>
 
     <script src="script.js"></script>
-
 </body>
 </html>
+
 
 

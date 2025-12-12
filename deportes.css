@@ -1,29 +1,25 @@
 /* ==================================== */
 /* 1. BASE Y ESTILOS GLOBALES */
 /* ==================================== */
-
 * {
     margin: 0;
     padding: 0;
-    /* Usamos border-box para que el padding y border no aumenten el tamaño final de los elementos */
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
 
 :root {
-    /* Colores Principales */
-    --color-bg-main: #0f1220; /* Fondo principal muy oscuro */
-    --color-bg-card: #1f2235; /* Fondo de tarjetas de partido/pestañas inactivas */
-    --color-bg-header-panel: #1a1c2b; /* Fondo de Header y Panel lateral */
-    --color-primary-green: #00cc66; /* Verde principal para destacar/éxito */
-    --color-secondary-gold: #ffd700; /* Dorado para saldos/énfasis */
+    --color-bg-main: #0f1220;
+    --color-bg-card: #1f2235;
+    --color-bg-header-panel: #1a1c2b;
+    --color-primary-green: #00cc66;
+    --color-secondary-gold: #ffd700;
     --color-text-light: #fff;
     --color-text-muted: #aaa;  
-    /* Colores de Apuestas/Barras de Probabilidad */
-    --color-segment-local: #00cc66; /* Verde (Victoria Local) */
-    --color-segment-draw: #ffaa33; /* Naranja (Empate) */
-    --color-segment-visitor: #ff3344; /* Rojo (Victoria Visitante) */
-    --color-border: #2a2d41; /* Bordes y elementos sutiles */
+    --color-segment-local: #00cc66;
+    --color-segment-draw: #ffaa33;
+    --color-segment-visitor: #ff3344;
+    --color-border: #2a2d41;
 }
 
 body {
@@ -35,15 +31,13 @@ body {
     flex-direction: column;
 }
 
-/* Enlace activo en la navegación */
 .sitio {
     color: var(--color-primary-green) !important;
 }
 
 /* ==================================== */
-/* 2. ESTILOS DE CABECERA (HEADER) */
+/* 2. HEADER */
 /* ==================================== */
-
 header {
     display: flex;
     justify-content: space-between;
@@ -126,19 +120,17 @@ header .btn-login:hover {
 }
 
 /* ==================================== */
-/* 3. LAYOUT PRINCIPAL (GRID) */
+/* 3. MAIN LAYOUT */
 /* ==================================== */
-
 .main-layout {
     display: grid;
-    /* Contenido (Partidos) | Panel Lateral (Talón) */
     grid-template-columns: 3fr 1fr; 
     gap: 30px;
     padding: 40px 80px;
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
-    flex-grow: 1; /* Empuja el footer hacia abajo */
+    flex-grow: 1;
 }
 
 .section-title {
@@ -150,9 +142,8 @@ header .btn-login:hover {
 }
 
 /* ==================================== */
-/* 4. PESTAÑAS (TABS) */
+/* 4. TABS */
 /* ==================================== */
-
 .tabs {
     display: flex;
     gap: 10px;
@@ -178,7 +169,7 @@ header .btn-login:hover {
 
 .active-tab-button {
     background-color: var(--color-primary-green);
-    color: var(--color-bg-main); /* Texto oscuro para contraste */
+    color: var(--color-bg-main);
     border-color: var(--color-primary-green);
     font-weight: bold;
 }
@@ -188,9 +179,8 @@ header .btn-login:hover {
 }
 
 /* ==================================== */
-/* 5. TARJETAS DE PARTIDO (Match Card) */
+/* 5. MATCH CARDS */
 /* ==================================== */
-
 .match-card {
     background-color: var(--color-bg-card);
     border-radius: 12px;
@@ -207,7 +197,6 @@ header .btn-login:hover {
     color: var(--color-text-light);
 }
 
-/* Barra de Porcentajes (Odds Bar) */
 .match-odds-bar {
     display: flex;
     width: 100%;
@@ -223,7 +212,7 @@ header .btn-login:hover {
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
-    color: white; /* Texto blanco siempre */
+    color: white;
     height: 100%;
     padding: 0 10px;
     white-space: nowrap;
@@ -232,12 +221,10 @@ header .btn-login:hover {
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
-/* Colores Específicos */
 .odd-segment.local { background-color: var(--color-segment-local); } 
 .odd-segment.draw { background-color: var(--color-segment-draw); } 
 .odd-segment.visitor { background-color: var(--color-segment-visitor); }
 
-/* Botones de Apuesta */
 .bet-actions {
     display: flex;
     gap: 10px;
@@ -245,7 +232,7 @@ header .btn-login:hover {
 }
 
 .btn-bet {
-    flex: 1; /* Ocupan ancho igual */
+    flex: 1;
     background-color: transparent; 
     color: var(--color-text-muted);
     border: 1px solid #444;
@@ -265,20 +252,18 @@ header .btn-login:hover {
 }
 
 /* ==================================== */
-/* 6. PANEL LATERAL (TALÓN DE APUESTAS) */
+/* 6. PANEL DE APUESTAS (TALÓN) */
 /* ==================================== */
-
 .talon-card {
-    /* Contenedor principal del talón */
     background-color: var(--color-bg-header-panel);
-    border: 2px solid var(--color-primary-green); /* Borde verde neón */
+    border: 2px solid var(--color-primary-green);
     border-radius: 12px;
     padding: 20px;
     color: var(--color-text-light);
     height: fit-content;
-    box-shadow: 0 0 20px rgba(0, 204, 102, 0.15); /* Resplandor verde suave */
+    box-shadow: 0 0 20px rgba(0, 204, 102, 0.15);
     position: sticky; 
-    top: 110px; /* Ajuste para que no choque con el header */
+    top: 110px;
     min-width: 300px;
 }
 
@@ -299,9 +284,8 @@ header .btn-login:hover {
     font-size: 0.9rem;
 }
 
-/* Items individuales de apuesta */
 .bet-item {
-    background-color: #25293d; /* Ligeramente más claro que el fondo */
+    background-color: #25293d;
     border-left: 4px solid var(--color-primary-green);
     padding: 12px;
     margin-bottom: 12px;
@@ -313,24 +297,12 @@ header .btn-login:hover {
     align-items: flex-start;
 }
 
-.bet-item div {
-    flex-grow: 1;
-    margin-right: 10px;
-}
+.bet-item div { flex-grow: 1; margin-right: 10px; }
 
-.bet-item strong {
-    display: block;
-    margin-bottom: 4px;
-    color: var(--color-text-light);
-}
+.bet-item strong { display: block; margin-bottom: 4px; color: var(--color-text-light); }
 
-.bet-item p {
-    font-size: 0.85rem;
-    color: #ccc;
-    margin-bottom: 5px;
-}
+.bet-item p { font-size: 0.85rem; color: #ccc; margin-bottom: 5px; }
 
-/* Input para el monto */
 .bet-amount-input {
     background-color: #1a1c2b;
     border: 1px solid #555;
@@ -341,7 +313,6 @@ header .btn-login:hover {
     text-align: right;
 }
 
-/* Botón de eliminar (X) */
 .remove-btn {
     background: none;
     border: none;
@@ -352,36 +323,24 @@ header .btn-login:hover {
     padding: 0 5px;
 }
 
-.remove-btn:hover {
-    color: #ff0000;
-}
+.remove-btn:hover { color: #ff0000; }
 
-/* Sección de Totales (Resumen) */
 .total-info {
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px dashed #555;
 }
 
-.total-info p {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-}
+.total-info p { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; }
 
-#total-payout {
-    color: var(--color-primary-green);
-    font-weight: bold;
-}
+#total-payout { color: var(--color-primary-green); font-weight: bold; }
 
-/* Botón Confirmar */
 #btn-place-all {
     width: 100%;
     padding: 14px;
     margin-top: 20px;
     background-color: var(--color-primary-green);
-    color: #000; /* Texto negro para contraste */
+    color: #000;
     border: none;
     border-radius: 6px;
     font-weight: bold;
@@ -410,17 +369,14 @@ header .btn-login:hover {
     font-size: 0.85rem;
     margin-top: 10px;
     text-align: center;
-    display: none; /* Oculto por defecto */
+    display: none;
 }
 
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }
 
 /* ==================================== */
 /* 7. FOOTER */
 /* ==================================== */
-
 footer {
     text-align: center;
     padding: 30px;
@@ -428,6 +384,5 @@ footer {
     font-size: 0.9rem;
     background-color: var(--color-bg-header-panel); 
     border-top: 1px solid #333;
-    margin-top: auto; /* Asegura que se quede abajo si hay poco contenido */
+    margin-top: auto;
 }
-
