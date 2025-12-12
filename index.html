@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="indexcss.css">
 </head>
 <body>
+
     <header>
         <div class="logo">VictoryZone</div>
+
         <nav>
             <ul>
                 <li><a class="sitio" href="index.html">Inicio</a></li>
@@ -19,58 +21,138 @@
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
-        <button class="btn-add-balance" onclick="alert('Funcionalidad de añadir saldo pendiente...')">
-        Añadir Saldo
-        </button>
+
+        <button class="btn-add-balance" onclick="alert('Funcionalidad de añadir saldo pendiente...')">Añadir Saldo</button>
+
         <div class="user-balance">Saldo: <span id="balance">10000</span>€</div>
-        <button class="btn-login">Iniciar sesión</button>
+
+        <div id="userArea">
+            <button class="btn-login" onclick="showModal('loginModal')">Iniciar sesión</button>
+        </div>
     </header>
 
-    <header class="hero">
-        <h1>HASTA 100€ EN CRÉDITOS DE APUESTA</h1>
-        <p>Oferta de nuevo cliente + 10 fichas doradas. ¡Apuesta ahora!</p>
-        <button class="btn">Registrarse</button>
-    </header>
+    <main>
+        <section class="hero">
+            <h1>HASTA 100€ EN CRÉDITOS DE APUESTA</h1>
+            <p>Oferta de nuevo cliente + 10 fichas doradas. ¡Apuesta ahora!</p>
+            <button class="btn" onclick="showModal('registerModal')">Registrarse</button>
+        </section>
 
-    <section class="container">
-        <div class="card">
-            <img src="images.jpeg" alt="Fútbol">
-            <h2>Fútbol</h2>
-            <p>Últimos partidos y apuestas destacadas de todas las ligas.</p>
-        </div>
-
-        <div class="card">
-            <img src="images (1).jpeg" alt="Baloncesto">
-            <h2>Baloncesto</h2>
-            <p>NBA y competiciones europeas.</p>
-        </div>
-        <div class="card">
-            <img src="images (2).jpeg" alt="Tenis">
-            <h2>Tenis</h2>
-            <p>Grand Slams, ATP y WTA.</p>
-        </div>
-        <div class="card">
-            <img src="imagesss (1).jpg" alt="Tenis">
-            <h2>Caballos</h2>
-            <p>Apuesta al caballo ganador</p>
-        </div>
-        <div class="card">
-            <img src="imagesssssssss.jpg" alt="Tenis">
-            <h2>Ruleta</h2>
-            <p>Diferentes tipos de ruleta</p>
-        </div>
-        <div class="card">
-            <img src="images(3).jpg" alt="Tenis">
-            <h2>NFL</h2>
-            <p>Apuesta por tu equipo de la NFL favorito</p>
-        </div>
-</section>
+        <section class="container">
+            <div class="card">
+                <img src="images.jpeg" alt="Fútbol">
+                <h2>Fútbol</h2>
+                <p>Últimos partidos y apuestas destacadas de todas las ligas.</p>
+            </div>
+            <div class="card">
+                <img src="images (1).jpeg" alt="Baloncesto">
+                <h2>Baloncesto</h2>
+                <p>NBA y competiciones europeas.</p>
+            </div>
+            <div class="card">
+                <img src="images (2).jpeg" alt="Tenis">
+                <h2>Tenis</h2>
+                <p>Grand Slams, ATP y WTA.</p>
+            </div>
+            <div class="card">
+                <img src="imagesss (1).jpg" alt="Caballos">
+                <h2>Caballos</h2>
+                <p>Apuesta al caballo ganador</p>
+            </div>
+            <div class="card">
+                <img src="imagesssssssss.jpg" alt="Ruleta">
+                <h2>Ruleta</h2>
+                <p>Diferentes tipos de ruleta</p>
+            </div>
+            <div class="card">
+                <img src="images(3).jpg" alt="NFL">
+                <h2>NFL</h2>
+                <p>Apuesta por tu equipo de la NFL favorito</p>
+            </div>
+        </section>
+    </main>
 
     <footer>
         &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
+
+    <!-- MODALES LOGIN / REGISTRO -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>Iniciar sesión</h2>
+            <input type="text" id="loginUser" placeholder="Usuario">
+            <input type="password" id="loginPass" placeholder="Contraseña">
+            <button onclick="login()">Entrar</button>
+            <button class="close-btn" onclick="closeModal('loginModal')">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <h2>Registrarse</h2>
+            <input type="text" id="regUser" placeholder="Usuario">
+            <input type="password" id="regPass" placeholder="Contraseña">
+            <button onclick="register()">Crear cuenta</button>
+            <button class="close-btn" onclick="closeModal('registerModal')">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+    /* ==============================
+       MODALES
+    ============================== */
+    function showModal(id) {
+        document.getElementById(id).style.display = "flex";
+    }
+    function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+    }
+
+    /* ==============================
+       REGISTRO
+    ============================== */
+    function register() {
+        const user = document.getElementById("regUser").value.trim();
+        const pass = document.getElementById("regPass").value.trim();
+        if (!user || !pass) { alert("Rellena todos los campos."); return; }
+        if (localStorage.getItem("user_" + user)) { alert("Ese usuario ya existe."); return; }
+        localStorage.setItem("user_" + user, pass);
+        alert("Cuenta creada con éxito.");
+        closeModal("registerModal");
+    }
+
+    /* ==============================
+       LOGIN
+    ============================== */
+    function login() {
+        const user = document.getElementById("loginUser").value.trim();
+        const pass = document.getElementById("loginPass").value.trim();
+        const storedPass = localStorage.getItem("user_" + user);
+        if (!storedPass) { alert("El usuario no existe."); return; }
+        if (storedPass !== pass) { alert("Contraseña incorrecta."); return; }
+        localStorage.setItem("sessionUser", user);
+        updateHeaderUser();
+        closeModal("loginModal");
+    }
+
+    function updateHeaderUser() {
+        const user = localStorage.getItem("sessionUser");
+        const userArea = document.getElementById("userArea");
+        if (user) {
+            userArea.innerHTML = `
+                <div class="user-balance">Usuario: ${user}</div>
+                <button class="btn-login" onclick="logout()">Cerrar sesión</button>
+            `;
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem("sessionUser");
+        location.reload();
+    }
+
+    updateHeaderUser();
+    </script>
+
 </body>
 </html>
-
-
-
