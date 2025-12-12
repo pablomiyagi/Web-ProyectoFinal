@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="tragaperras.css" />
     <link rel="stylesheet" href="media.css">
 </head>
-<body>
 
+<body>
     <header>
         <div class="logo">VictoryZone</div>
         <nav>
@@ -21,47 +21,57 @@
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
+
         <button class="btn-add-balance" onclick="alert('Funcionalidad de añadir saldo pendiente...')">
-        Añadir Saldo
+            Añadir Saldo
         </button>
-        <div class="user-balance">Saldo: <span id="balance">10000</span>€</div>
+
+        <div class="user-balance">
+            Saldo: <span id="balance">10000</span>€
+        </div>
+
         <button class="btn-login">Iniciar sesión</button>
     </header>
-<section class="slot-wrapper">
-    <h1 class="slot-title">Tragaperras</h1>
 
-    <div class="slot-machine" id="machine">
-    <div id="jackpot-container"></div>
+    <main>
+        <section class="slot-wrapper">
+            <h1 class="slot-title">Tragaperras</h1>
 
-        <div class="lever" id="lever">
-            <div class="lever-ball"></div>
-        </div>
+            <div class="slot-machine" id="machine">
+                <div id="jackpot-container"></div>
 
-        <div class="reels">
-            <div class="reel" id="reel1">🍒</div>
-            <div class="reel" id="reel2">🍋</div>
-            <div class="reel" id="reel3">⭐</div>
-        </div>
+                <div class="lever" id="lever">
+                    <div class="lever-ball"></div>
+                </div>
 
-        <button class="btn-spin" onclick="spin()">Girar</button>
+                <div class="reels">
+                    <div class="reel" id="reel1">🍒</div>
+                    <div class="reel" id="reel2">🍋</div>
+                    <div class="reel" id="reel3">⭐</div>
+                </div>
 
-        <p id="result"></p>
-    </div>
+                <button class="btn-spin" onclick="spin()">Girar</button>
 
-    <!-- Audios -->
-    <audio id="sound-spin">
-        <source src="roulette-game-429833.mp3" type="audio/wav">
-    </audio>
+                <p id="result"></p>
+            </div>
 
-    <audio id="sound-stop">
-        <source src="winner-game-sound-404167.mp3" type="audio/wav">
-    </audio>
-    
-</section>
+            <!-- Audios -->
+            <audio id="sound-spin">
+                <source src="roulette-game-429833.mp3" type="audio/wav">
+            </audio>
+
+            <audio id="sound-stop">
+                <source src="winner-game-sound-404167.mp3" type="audio/wav">
+            </audio>
+        </section>
+    </main>
+
     <footer>
         &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
-<script src="tragaperras.js"></script>
+
+    <script src="tragaperras.js"></script>
 </body>
 </html>
+
 
