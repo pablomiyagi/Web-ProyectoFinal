@@ -386,3 +386,52 @@ footer {
     border-top: 1px solid #333;
     margin-top: auto;
 }
+
+/* ==================================== */
+/* 8. MEDIA QUERIES (RESPONSIVE) */
+/* ==================================== */
+
+@media (max-width: 1024px) {
+    header {
+        padding: 20px 40px;
+    }
+    
+    .main-layout {
+        grid-template-columns: 1fr; /* Una sola columna */
+        padding: 20px;
+    }
+    
+    .talon-card {
+        position: static; /* Ya no es sticky en móvil */
+        width: 100%;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .btn-add-balance {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .match-odds-bar {
+        font-size: 0.8rem; /* Texto más pequeño en barras */
+    }
+
+    .odd-segment {
+        padding: 0 5px;
+    }
+}
