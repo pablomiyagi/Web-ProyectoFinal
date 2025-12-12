@@ -7,6 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function spin() {
+        const balanceElem = document.getElementById("balance");
+        let balance = parseInt(balanceElem.textContent, 10);
+
+        // Restar 10€ por cada giro
+        balance -= 10;
+        balanceElem.textContent = balance;
+
         const r1 = document.getElementById("reel1");
         const r2 = document.getElementById("reel2");
         const r3 = document.getElementById("reel3");
