@@ -1,6 +1,3 @@
-// ===============================================
-// 1. DATA DE PARTIDOS
-// ===============================================
 
 const matchData = {
     laliga: [
@@ -30,13 +27,9 @@ const matchData = {
     ]
 };
 
-// Variables globales
 let activeBets = [];
 let historialSesion = [];
 
-// ===============================================
-// 2. FUNCIONES DE RENDERIZADO
-// ===============================================
 
 function createOddsBarHTML(probs, isThreeWay) {
     let html = '';
@@ -81,9 +74,6 @@ function renderMatches(leagueId) {
     });
 }
 
-// ===============================================
-// 3. PESTAÑAS (TABS)
-// ===============================================
 
 function handleTabClick(event) {
     const clickedTab = event.target;
@@ -106,9 +96,6 @@ function handleTabClick(event) {
     }
 }
 
-// ===============================================
-// 4. PANEL DE APUESTAS
-// ===============================================
 
 function updateBetPanel() {
     const listContainer = document.getElementById('apuestas-list');
@@ -161,7 +148,6 @@ function updateBetPanel() {
     }
 }
 
-// Historial sesión
 function renderConfirmedHistory() {
     let historyContainer = document.getElementById('historial-apuestas-container');
     const btnPlaceAll = document.getElementById('btn-place-all');
@@ -200,9 +186,6 @@ function renderConfirmedHistory() {
     });
 }
 
-// ===============================================
-// 5. EVENTOS
-// ===============================================
 
 function handleBetClick(event) {
     const button = event.target;
@@ -255,9 +238,6 @@ function handleAmountChange(event) {
     updateBetPanel();
 }
 
-// ===============================================
-// 6. INICIALIZACIÓN
-// ===============================================
 
 document.addEventListener('DOMContentLoaded', () => {
     renderMatches('laliga');

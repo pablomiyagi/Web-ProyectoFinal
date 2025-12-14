@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function spin() {
         const balanceElem = document.getElementById("balance");
         let balance = parseInt(balanceElem.textContent, 10);
-
-        // Restar 10€ por cada giro
         balance -= 10;
         balanceElem.textContent = balance;
 
@@ -25,17 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const sSpin = document.getElementById("sound-spin");
         const sStop = document.getElementById("sound-stop");
 
-        // Limpiar resultados previos
         resultText.textContent = "";
         container.innerHTML = "";
 
-        // Sonido de giro
         if (sSpin) {
             sSpin.currentTime = 0;
             sSpin.play();
         }
 
-        // Animaciones
         lever.classList.add("active");
         r1.classList.add("spin-anim");
         r2.classList.add("spin-anim");
@@ -121,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2500);
     }
 
-    // Conectar el botón de girar
     document.querySelector(".btn-spin").addEventListener("click", spin);
 });
 

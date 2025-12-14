@@ -1,7 +1,3 @@
-/* =========================================
-   BASE + FOOTER FIJO ABAJO
-   ========================================= */
-
 html, body {
     height: 100%;
 }
@@ -30,10 +26,6 @@ main {
 .sitio {
     color: #00cc66;
 }
-
-/* =========================================
-   HEADER
-   ========================================= */
 
 header {
     display: flex;
@@ -110,9 +102,6 @@ header nav ul li a:hover {
     transform: translateY(-1px);
 }
 
-/* =========================================
-   SLOT MACHINE
-   ========================================= */
 
 .slot-wrapper {
     max-width: 680px;
@@ -175,10 +164,6 @@ header nav ul li a:hover {
 .btn-spin:hover {
     transform: scale(1.05);
 }
-
-/* =========================================
-   FOOTER
-   ========================================= */
 
 footer {
     text-align: center;

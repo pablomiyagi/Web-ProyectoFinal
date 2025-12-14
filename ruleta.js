@@ -1,9 +1,7 @@
-// --- CONFIGURACIÓN RUEDA AMERICANA ---
 const canvas = document.getElementById("wheelCanvas");
 const ctx = canvas ? canvas.getContext("2d") : null;
 
 const mainBettingGrid = document.getElementById("mainBettingGrid");
-// Intentar leer saldo del HTML, si no existe o es texto, usar 10000 por defecto
 let currentBalance = 10000;
 const balanceEl = document.getElementById("balance");
 if (balanceEl) {
@@ -15,16 +13,13 @@ let currentChipValue = 100;
 let currentRotation = 0;
 let bets = {};
 
-// Orden estándar de la rueda (0 y 00 opuestos)
 const numbers = [0, 28, 9, 26, 30, 11, 7, 20, 32, 17, 5, 22, 34, 15, 3, 24, 36, 13, 1, '00', 27, 10, 25, 29, 12, 8, 19, 31, 18, 6, 21, 33, 16, 4, 23, 35, 14, 2];
 
-// --- JSON ESTADÍSTICAS ---
 let rouletteData = JSON.parse(localStorage.getItem("rouletteStats")) || {
     numbers: numbers.map(n => ({ num: n, count: 0 })),
     stats: { hotNumbers: [], coldNumbers: [] }
 };
 
-// --- HELPERS ---
 function getNumberColor(num) {
     if (num === 0 || num === '00') return "#00cc66"; // Verde
     const redNums = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
@@ -32,7 +27,6 @@ function getNumberColor(num) {
     return redNums.includes(n) ? "#d32f2f" : "#222";
 }
 
-// --- DIBUJAR RUEDA ---
 function drawWheel() {
     if (!canvas || !ctx) return;
     const arcSize = (2 * Math.PI) / numbers.length;
@@ -57,19 +51,16 @@ function drawWheel() {
     }
 }
 
-// --- TABLERO DINÁMICO ---
 function generateBoardLayout() {
     if (!mainBettingGrid) return;
     const columnNumbers = [];
     for (let i = 1; i <= 36; i++) columnNumbers.push(i);
     let gridHTML = '';
     for (let row = 0; row < 12; row++) {
-        const num1 = columnNumbers[row]; // Columna 1 real (1, 4, 7...)
-        const num2 = columnNumbers[row + 12]; // Columna 2
-        const num3 = columnNumbers[row + 24]; // Columna 3
+        const num1 = columnNumbers[row];
+        const num2 = columnNumbers[row + 12];
+        const num3 = columnNumbers[row + 24];
 
-        // NOTA: Ajusta el orden de visualización si tus columnas se ven raras, 
-        // pero matemáticamente esta es la distribución estándar.
         gridHTML += `
             <div class="bet-spot ${getNumberColor(num1) === '#d32f2f' ? 'bg-red' : 'bg-black'}" data-bet="${num1}" id="spot-${num1}" onclick="placeBet('${num1}')">${num1}<div class="chip-stack" id="bet-${num1}"></div></div>
             <div class="bet-spot ${getNumberColor(num2) === '#d32f2f' ? 'bg-red' : 'bg-black'}" data-bet="${num2}" id="spot-${num2}" onclick="placeBet('${num2}')">${num2}<div class="chip-stack" id="bet-${num2}"></div></div>
@@ -80,7 +71,6 @@ function generateBoardLayout() {
     mainBettingGrid.innerHTML = gridHTML;
 }
 
-// --- SELECCIONAR FICHA ---
 function selectChip(value) {
     currentChipValue = value;
     document.querySelectorAll(".chip-btn").forEach(btn => btn.classList.remove("active"));
@@ -90,7 +80,6 @@ function selectChip(value) {
     if (msgArea) msgArea.innerText = `Ficha seleccionada: ${value}€`;
 }
 
-// --- COLOCAR APUESTA ---
 window.placeBet = function(spot) {
     if (!bets[spot]) bets[spot] = 0;
     
@@ -116,7 +105,6 @@ window.placeBet = function(spot) {
     }
 };
 
-// --- BORRAR APUESTAS ---
 function clearBets() {
     let returned = 0;
     for (let spot in bets) {
@@ -135,7 +123,6 @@ function clearBets() {
     if (msgArea) msgArea.innerText = "Apuestas borradas (UNDO)";
 }
 
-// --- ESTADÍSTICAS ---
 function updateNumberStats(winningNum) {
     if (winningNum !== -1) {
         const numberObj = rouletteData.numbers.find(n => n.num == winningNum);
@@ -173,35 +160,23 @@ function updateNumberStats(winningNum) {
     }
 }
 
-// =========================================================
-// AQUÍ ESTÁ LA CALIBRACIÓN FINAL Y EXACTA (90 GRADOS)
-// =========================================================
 function calculateResult(actualDeg) {
     if (!Array.isArray(numbers) || numbers.length === 0) return;
 
-    // 1. Tamaño de cada gajo
     const sliceAngle = 360 / numbers.length;
 
-    // 2. Grados normalizados (0-360)
     const normalizedDeg = (actualDeg % 360 + 360) % 360;
 
-    // 3. CALIBRACIÓN: OFFSET DE 90 GRADOS
-    // Esto corrige la diferencia entre el 0 del Canvas (Derecha) y la Flecha (Arriba)
     const offset = 90; 
 
-    // 4. Cálculo del índice invertido (porque la rueda gira antihorario en CSS)
     let rawIndex = Math.floor((360 - ((normalizedDeg + offset) % 360)) / sliceAngle);
 
-    // 5. Ajuste final de índice
     let index = rawIndex % numbers.length;
 
-    // 6. Obtener número ganador
     const winningNum = numbers[index];
 
-    // Debug
     console.log(`Giro: ${normalizedDeg.toFixed(2)} | Offset: ${offset} | Ganador: ${winningNum}`);
 
-    // Mostrar mensaje
     const msgArea = document.getElementById("msg-area");
     if (msgArea) {
         const color = getNumberColor(winningNum);
@@ -209,29 +184,22 @@ function calculateResult(actualDeg) {
         msgArea.innerHTML = `¡RESULTADO: <b style="color:${color}; font-size:1.3em;">${winningNum}</b> (${colorName})!`;
     }
 
-    // Actualizar estadísticas
     updateNumberStats(winningNum);
-    
-    // (Opcional) Aquí llamarías a la función de pagar apuestas si la tuvieras
-    // payWinnings(winningNum);
+
 }
 
-// --- GIRAR ---
 const spinBtn = document.getElementById("spinBtn");
 if (spinBtn) {
     spinBtn.addEventListener("click", () => {
-        // Verificar apuestas (opcional, comentado para pruebas rápidas)
-        // if(Object.keys(bets).length === 0){ document.getElementById("msg-area").innerText="¡Pon una ficha primero!"; return; }
         
         spinBtn.disabled = true;
-        const extraSpins = 5; // Vueltas mínimas
-        const randomDeg = Math.floor(Math.random() * 360); // Aleatorio
+        const extraSpins = 5; 
+        const randomDeg = Math.floor(Math.random() * 360); 
         const totalDeg = (extraSpins * 360) + randomDeg;
         
         currentRotation += totalDeg;
         
         if (canvas) {
-            // Animación suave CSS
             canvas.style.transition = "transform 4s cubic-bezier(0.15, 0.80, 0.15, 1.0)"; 
             canvas.style.transform = `rotate(-${currentRotation}deg)`;
         }
@@ -240,14 +208,12 @@ if (spinBtn) {
         if(msgArea) msgArea.innerText = "Girando...";
 
         setTimeout(() => {
-            // Llamar a la función calibrada
             calculateResult(currentRotation);
             spinBtn.disabled = false;
-        }, 4000); // Esperar 4 segundos (duración de la animación)
+        }, 4000);
     });
 }
 
-// --- INICIALIZAR ---
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("balance").innerText = currentBalance;
     if (canvas) drawWheel();
