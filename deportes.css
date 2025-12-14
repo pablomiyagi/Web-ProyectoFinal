@@ -425,6 +425,7 @@ footer {
     .btn-add-balance {
         margin: 10px 0;
         width: 100%;
+        max-width: 300px;
     }
 
     .match-odds-bar {
