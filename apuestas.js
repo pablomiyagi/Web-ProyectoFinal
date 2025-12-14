@@ -1,4 +1,3 @@
-// --- CONFIGURACIÓN Y ESTADO INICIAL ---
 const balanceElement = document.getElementById("balance");
 const lastWinnerElement = document.getElementById("lastWinner");
 const betHorseSelect = document.getElementById("betHorse");
@@ -7,7 +6,6 @@ const startRaceBtn = document.querySelector(".btn-start-race");
 const messageArea = document.getElementById("message");
 const resultArea = document.getElementById("result");
 
-// Ajustado para un comportamiento más equilibrado y divertido
 const horses = [
     { id: "horse1", name: "Pegaso", baseSpeed: 10, variance: 8, odds: 2.5 },
     { id: "horse2", name: "Ramoncin", baseSpeed: 11, variance: 7, odds: 3.0 },
@@ -20,7 +18,6 @@ let raceInterval = null;
 let raceFinished = false;
 const finishLineOffset = 80;
 
-// --- FUNCIONES DE UI ---
 
 function updateBalance(amount) {
     currentBalance += amount;
@@ -45,7 +42,6 @@ function disableControls(disabled) {
     betAmountInput.disabled = disabled;
 }
 
-// --- LÓGICA DE LA CARRERA ---
 
 function resetRace() {
     raceFinished = false;
@@ -98,7 +94,6 @@ function startRace(userBetHorseId, userBetAmount) {
     let currentPositions = horses.map(() => 0);
     let winner = null;
 
-    // --- SOLUCIÓN 2: Boost aleatorio por caballo ---
     const randomBoosts = horses.map(() => Math.random() * 5);
 
     resultArea.innerHTML = "<h3>¡En sus marcas, listos, FUERA!</h3>";
@@ -110,7 +105,6 @@ function startRace(userBetHorseId, userBetAmount) {
         horses.forEach((horse, index) => {
             if (currentPositions[index] >= finishLine) return;
 
-            // Velocidad con boost
             const speed =
                 horse.baseSpeed +
                 randomBoosts[index] +
@@ -118,7 +112,6 @@ function startRace(userBetHorseId, userBetAmount) {
 
             currentPositions[index] += speed;
 
-            // Movimiento del caballo
             const horseElement = document.getElementById(horse.id);
             horseElement.style.transform = `translateX(${currentPositions[index]}px)`;
 
@@ -126,15 +119,12 @@ function startRace(userBetHorseId, userBetAmount) {
             if (nameElement) {
                 nameElement.style.transform = `translateX(${currentPositions[index]}px)`;
             }
-
-            // Detectar ganador
             if (currentPositions[index] >= finishLine && winner === null) {
                 winner = index + 1;
                 raceFinished = true;
             }
         });
 
-        // Al terminar
         if (winner !== null) {
             clearInterval(raceInterval);
 
@@ -165,7 +155,6 @@ function startRace(userBetHorseId, userBetAmount) {
     }, 70);
 }
 
-// --- Inicialización ---
 document.addEventListener("DOMContentLoaded", () => {
     balanceElement.innerText = currentBalance;
     resetRace();

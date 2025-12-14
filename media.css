@@ -1,16 +1,8 @@
-/* =========================================
-   MEDIA QUERIES (RESPONSIVE)
-   ========================================= */
-
-/* ============================
-   1024px – Tablets / Laptops Small
-   ============================ */
 @media (max-width: 1024px) {
     header {
         padding: 20px 40px;
     }
 
-    /* Bloque talon-card */
     .main-layout {
         grid-template-columns: 1fr;
         padding: 20px;
@@ -22,7 +14,6 @@
         margin-top: 30px;
     }
 
-    /* Roulette */
     .table-frame {
         flex-direction: column;
         align-items: center;
@@ -44,7 +35,6 @@
     }
 }
 
-/* Extra 1200px (mantengo igual, es distinto a tus otros responsives) */
 @media (max-width: 1200px) {
     .roulette-container {
         flex-direction: column;
@@ -66,12 +56,7 @@
     }
 }
 
-/* ============================
-   768px – Responsivo Móvil
-   (Estructura unificada como pediste)
-   ============================ */
 @media (max-width: 768px) {
-    /* --- HEADER STACK (igual para todos los bloques) --- */
     header {
         flex-direction: column;
         padding: 15px;
@@ -96,7 +81,6 @@
         margin-bottom: 10px;
     }
 
-    /* ----- Bloque talon-card / sports odds ----- */
     .match-odds-bar {
         font-size: 0.8rem;
     }
@@ -105,7 +89,6 @@
         padding: 0 5px;
     }
 
-    /* ----- Slot Machine ----- */
     .slot-wrapper {
         margin: 40px auto;
         padding: 0 15px;
@@ -146,7 +129,6 @@
         font-size: 40px;
     }
 
-    /* ----- Roulette ----- */
     .casino-table {
         padding: 10px;
     }
@@ -197,9 +179,6 @@
     }
 }
 
-/* ============================
-   480px – Móviles pequeños
-   ============================ */
 @media (max-width: 480px) {
     .bet-spot {
         font-size: 0.9rem;
@@ -216,9 +195,6 @@
     }
 }
 
-/* ============================
-   400px – Móviles muy pequeños (Slot Machine)
-   ============================ */
 @media (max-width: 400px) {
     .reels {
         gap: 5px;

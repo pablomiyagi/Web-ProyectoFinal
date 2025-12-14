@@ -76,7 +76,6 @@
         &copy; 2025 VictoryZone - Todos los derechos reservados.
     </footer>
 
-    <!-- MODALES LOGIN / REGISTRO -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <h2>Iniciar sesión</h2>
@@ -98,9 +97,6 @@
     </div>
 
     <script>
-    /* ==============================
-       MODALES
-    ============================== */
     function showModal(id) {
         document.getElementById(id).style.display = "flex";
     }
@@ -108,9 +104,6 @@
         document.getElementById(id).style.display = "none";
     }
 
-    /* ==============================
-       REGISTRO
-    ============================== */
     function register() {
         const user = document.getElementById("regUser").value.trim();
         const pass = document.getElementById("regPass").value.trim();
@@ -121,9 +114,6 @@
         closeModal("registerModal");
     }
 
-    /* ==============================
-       LOGIN
-    ============================== */
     function login() {
         const user = document.getElementById("loginUser").value.trim();
         const pass = document.getElementById("loginPass").value.trim();
