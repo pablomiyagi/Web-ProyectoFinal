@@ -94,27 +94,38 @@ window.placeBet = function(spot) {
     
     const msgArea = document.getElementById("msg-area");
     if (msgArea) msgArea.innerText = `Apostando ${currentChipValue}€ en ${spot}...`;
-    
-    const chipEl = document.getElementById(`bet-${spot}`);
-    if (chipEl) {
+
+    const display = currentChipValue >= 1000 ? (currentChipValue / 1000) + 'K' : currentChipValue;
+
+    // Las apuestas a columna (col1/col2/col3) se repiten en 4 casillas "2-1"
+    // del tablero que representan la MISMA apuesta: se actualizan todas para
+    // que la ficha se vea sin importar en cuál de las 4 se haya pulsado.
+    const chipEls = (typeof spot === 'string' && spot.startsWith('col'))
+        ? document.querySelectorAll(`[data-bet="${spot}"] .chip-stack`)
+        : [document.getElementById(`bet-${spot}`)].filter(Boolean);
+
+    chipEls.forEach(chipEl => {
         chipEl.className = 'chip-stack';
         chipEl.classList.add(`chip-visual-${currentChipValue}`);
-        let display = currentChipValue >= 1000 ? (currentChipValue / 1000) + 'K' : currentChipValue;
         chipEl.innerText = display;
         chipEl.classList.add("active");
-    }
+    });
 };
 
 function clearBets() {
     let returned = 0;
     for (let spot in bets) {
         returned += bets[spot];
-        const chipEl = document.getElementById(`bet-${spot}`);
-        if (chipEl) {
+
+        const chipEls = spot.startsWith('col')
+            ? document.querySelectorAll(`[data-bet="${spot}"] .chip-stack`)
+            : [document.getElementById(`bet-${spot}`)].filter(Boolean);
+
+        chipEls.forEach(chipEl => {
             chipEl.innerText = '';
             chipEl.className = 'chip-stack';
             chipEl.classList.remove("active");
-        }
+        });
     }
     currentBalance += returned;
     bets = {};
@@ -167,15 +178,18 @@ function calculateResult(actualDeg) {
 
     const normalizedDeg = (actualDeg % 360 + 360) % 360;
 
-    const offset = 90; 
+    // La rueda se gira visualmente con rotate(-currentRotation), y el puntero
+    // está fijo arriba (posición "norte" = 270° en el sistema de ángulos del
+    // canvas, donde 0° = este y el ángulo crece en sentido horario).
+    // El número bajo el puntero es el que, en el sistema local del canvas,
+    // queda en el ángulo (270 + giro) tras aplicar ese giro.
+    const pointerLocalAngle = (270 + normalizedDeg) % 360;
 
-    let rawIndex = Math.floor((360 - ((normalizedDeg + offset) % 360)) / sliceAngle);
-
-    let index = rawIndex % numbers.length;
+    const index = Math.floor(pointerLocalAngle / sliceAngle) % numbers.length;
 
     const winningNum = numbers[index];
 
-    console.log(`Giro: ${normalizedDeg.toFixed(2)} | Offset: ${offset} | Ganador: ${winningNum}`);
+    console.log(`Giro: ${normalizedDeg.toFixed(2)} | Ganador: ${winningNum}`);
 
     const msgArea = document.getElementById("msg-area");
     if (msgArea) {
@@ -218,15 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("balance").innerText = currentBalance;
     if (canvas) drawWheel();
     generateBoardLayout();
-    
-    const undoButton = document.querySelector(".btn-clear");
-    if (undoButton) undoButton.addEventListener("click", clearBets);
-    
-    document.querySelectorAll(".chip-btn").forEach(btn => {
-        let text = btn.textContent.replace('K', '000');
-        let value = parseInt(text);
-        if (!isNaN(value)) btn.addEventListener("click", () => selectChip(value));
-    });
     
     selectChip(100);
     updateNumberStats(-1);
